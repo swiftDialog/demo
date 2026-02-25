@@ -47,7 +47,7 @@ result=$("$DIALOG" \
     --icon "SF=checkmark.shield,colour=#34C759" \
     --textfield "Phone (10 digits),required,regex=^\d{10}$,regexerror=Enter exactly 10 digits,prompt=0400000000" \
     --textfield "Postcode (4 digits),required,regex=^\d{4}$,regexerror=Enter a 4-digit postcode,prompt=2600" \
-    --textfield "Email,required,regex=^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2\,}$,regexerror=Enter a valid email" \
+    --textfield "Email,required,regex=^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z][a-zA-Z]+$,regexerror=Enter a valid email" \
     --textfieldlivevalidation \
     --button1text "Next →" \
     --button2text "Skip" \

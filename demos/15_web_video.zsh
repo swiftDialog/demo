@@ -30,6 +30,19 @@ DIALOG="/usr/local/bin/dialog"
     --height 600 \
     --json || exit 0
 
+# --- Video from Vimeo ---
+"$DIALOG" \
+    --title "Vimeo Playback" \
+    --message "Vimeo videos are embedded the same way using a \`vimeoid=\` shortcut.\n\nThis example uses a Vimeo video ID shortcut." \
+    --video "vimeoid=76979871" \
+    --videocaption "Vimeo video embedded with vimeoid=<id> shortcut" \
+    --button1text "Next →" \
+    --button2text "Skip" \
+    --moveable \
+    --width 800 \
+    --height 600 \
+    --json || exit 0
+
 # --- Video with autoplay ---
 "$DIALOG" \
     --title "Video Autoplay" \

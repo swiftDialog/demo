@@ -25,7 +25,7 @@ DIALOG="/usr/local/bin/dialog"
     --title "Info Text" \
     --message "The \`--infotext\` option replaces the info button with static text in the bottom-left.\n\nLook at the bottom-left of this window! ↙" \
     --icon "SF=info.circle,colour=#5856D6" \
-    --infotext "swiftDialog v$(${DIALOG} --version 2>/dev/null || echo '?.?.?') • Demo Suite" \
+    --infotext "swiftDialog v$("$DIALOG" --version 2>/dev/null || echo '?.?.?') • Demo Suite" \
     --button1text "Next →" \
     --button2text "Skip" \
     --moveable \
@@ -148,7 +148,7 @@ result=$("$DIALOG" \
     --width 650 \
     --json 2>/dev/null)
 
-local exit_code=$?
+exit_code=$?
 echo "Exit code: $exit_code"
 echo "Output (even on cancel):"
 echo "$result" | jq '.'
@@ -172,5 +172,29 @@ echo "$result" | jq '.'
     --title "Auth Key & Checksum" \
     --message "swiftDialog supports an **authentication key** system:\n\n• \`--key <passphrase>\` — SHA256 verified against a stored hash\n• \`--checksum <string>\` — Generates SHA256 hashes\n\nThis prevents unauthorised use of swiftDialog.\n\n_These are not demonstrated live to avoid modifying system preferences._" \
     --icon "SF=lock.shield.fill,colour=#FF3B30" \
+    --button1text "Next →" \
+    --button2text "Skip" \
+    --json || exit 0
+
+# --- List fonts ---
+font_list=$("$DIALOG" --listfonts 2>/dev/null || echo "Unable to retrieve font list")
+"$DIALOG" \
+    --title "Available Fonts" \
+    --message "The \`--listfonts\` flag outputs all font names available to swiftDialog for use with \`titlefont:\`, \`messagefont:\`, and other font parameters." \
+    --icon "SF=textformat,colour=#5856D6" \
+    --infobox "$font_list" \
+    --button1text "Next →" \
+    --button2text "Skip" \
+    --moveable \
+    --width 650 \
+    --height 500 \
+    --json || exit 0
+
+# --- Verbose mode ---
+"$DIALOG" \
+    --style alert \
+    --title "Verbose Mode" \
+    --message "The \`--verbose\` flag enables detailed diagnostic output written to **stderr**.\n\nIt is intended for development and troubleshooting, not user-facing dialogs.\n\nRun any dialog with \`--verbose 2>&1 | less\` in a terminal to see the full output." \
+    --icon "SF=megaphone,colour=#FF9500" \
     --button1text "Done ✓" \
     --json || true

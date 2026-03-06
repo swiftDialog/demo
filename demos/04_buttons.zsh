@@ -4,7 +4,7 @@
 #               --button2, --button2text, --button2disabled, --button2symbol,
 #               --infobutton, --infobuttontext, --infobuttonaction, --infobuttonsymbol,
 #               --buttonstyle (center, stack), --buttonsize, --buttontextsize,
-#               --quitoninfo, --helpsheetbuttontext, --hidedefaultkeyboardaction
+#               --quitoninfo, --helpmessage, --hidedefaultkeyboardaction
 
 DIALOG="/usr/local/bin/dialog"
 
@@ -88,6 +88,27 @@ DIALOG="/usr/local/bin/dialog"
     --moveable \
     --json || exit 0
 
+# --- Hide default keyboard action ---
+"$DIALOG" \
+    --title "Hidden Keyboard Action" \
+    --message "The \`--hidedefaultkeyboardaction\` flag requires **⌘⇧** modifier keys to activate Return ↵ or Esc ⎋.\n\nThis prevents accidental dismissal.\n\nTry pressing Enter alone — nothing happens. Use **⌘⇧Enter** instead." \
+    --icon "SF=keyboard.badge.ellipsis,colour=#FF9500" \
+    --button1text "Next →" \
+    --button2text "Also works with ⌘⇧Esc" \
+    --hidedefaultkeyboardaction \
+    --moveable \
+    --json || exit 0
+
+# --- Help message ---
+"$DIALOG" \
+    --title "Help Button" \
+    --message "The \`--helpmessage\` option enables the **(?)** help button in the bottom-right corner.\n\nClick it to see the help popover." \
+    --icon "SF=questionmark.circle,colour=#5856D6" \
+    --helpmessage "### How to use this dialog\n\nThis is the **help popover** triggered by the \`--helpmessage\` option.\n\nYou can put any **markdown content** here, including:\n- Lists\n- Code blocks\n- Links" \
+    --button1text "Next →" \
+    --moveable \
+    --json || exit 0
+
 # --- Disabled buttons ---
 "$DIALOG" \
     --title "Disabled Buttons" \
@@ -95,17 +116,6 @@ DIALOG="/usr/local/bin/dialog"
     --icon "SF=hand.raised.slash,colour=#8E8E93" \
     --button1text "Disabled" \
     --button1disabled \
-    --button2text "Next →" \
+    --button2text "Done ✓" \
     --moveable \
     --json || exit 0
-
-# --- Hide default keyboard action ---
-"$DIALOG" \
-    --title "Hidden Keyboard Action" \
-    --message "The \`--hidedefaultkeyboardaction\` flag requires **⌘⇧** modifier keys to activate Return ↵ or Esc ⎋.\n\nThis prevents accidental dismissal.\n\nTry pressing Enter alone — nothing happens. Use **⌘⇧Enter** instead." \
-    --icon "SF=keyboard.badge.ellipsis,colour=#FF9500" \
-    --button1text "Done ✓" \
-    --button2text "Also works with ⌘⇧Esc" \
-    --hidedefaultkeyboardaction \
-    --moveable \
-    --json || true

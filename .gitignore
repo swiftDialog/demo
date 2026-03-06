@@ -1,0 +1,31 @@
+# swiftDialog_demos
+## Version 1.0.0
+
+### macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+.TemporaryItems
+.DocumentRevisions-V100
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.apdisk
+
+### Zsh
+.zsh_history
+.zsh_sessions/
+.zcompdump*
+.zcompcache/
+*.zwc
+
+### Project temp
+.deployDDMOSReminder.zsh
+.deployVersion.txt
+
+### Local guidance
+AGENTS.md

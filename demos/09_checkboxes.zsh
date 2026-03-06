@@ -56,6 +56,9 @@ result=$("$DIALOG" \
     --width 650 \
     --json 2>/dev/null) || exit 0
 
+echo "Switch style output:"
+echo "$result" | jq '.'
+
 # --- Switch sizes ---
 result=$("$DIALOG" \
     --title "Switch Sizes" \
@@ -65,7 +68,28 @@ result=$("$DIALOG" \
     --checkbox "Feature A" \
     --checkbox "Feature B" \
     --checkbox "Feature C" \
+    --button1text "Next →" \
+    --button2text "Skip" \
+    --moveable \
+    --width 650 \
+    --json 2>/dev/null) || exit 0
+
+echo "Switch sizes output:"
+echo "$result" | jq '.'
+
+# --- Icon style ---
+result=$("$DIALOG" \
+    --title "Icon Checkbox Style" \
+    --message "Use \`--checkboxstyle icon\` to display checkboxes as larger icon-based toggles." \
+    --icon "SF=checklist,colour=#FF9500" \
+    --checkboxstyle "icon" \
+    --checkbox "iCloud Drive" \
+    --checkbox "Find My Mac" \
+    --checkbox "Screen Time" \
     --button1text "Done ✓" \
     --moveable \
     --width 650 \
     --json 2>/dev/null) || true
+
+echo "Icon checkbox output:"
+echo "$result" | jq '.'

@@ -152,11 +152,26 @@ result=$("$DIALOG" \
     --listitem "macOS Monterey" \
     --listitem "macOS Big Sur" \
     --enablelistselect \
-    --button1text "Done ✓" \
+    --button1text "Next →" \
+    --button2text "Skip" \
     --moveable \
     --width 650 \
     --height 420 \
-    --json 2>/dev/null) || true
+    --json 2>/dev/null) || exit 0
 
 echo "List selection output:"
 echo "$result" | jq '.'
+
+# --- List item with action ---
+"$DIALOG" \
+    --title "List Item Actions" \
+    --message "The \`action\` modifier opens a URL when its list item is clicked.\n\nTry clicking any item below — it will open the linked URL in your browser." \
+    --icon "SF=link.circle.fill,colour=#007AFF" \
+    --listitem "swiftDialog GitHub,action=https://github.com/swiftDialog/swiftDialog" \
+    --listitem "SF Symbols,action=https://developer.apple.com/sf-symbols/" \
+    --listitem "swiftDialog Wiki,action=https://github.com/swiftDialog/swiftDialog/wiki" \
+    --button1text "Done ✓" \
+    --moveable \
+    --width 700 \
+    --height 350 \
+    --json || true

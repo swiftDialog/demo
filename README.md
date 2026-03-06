@@ -44,6 +44,7 @@ The main controller uses swiftDialog itself — pick demos with checkboxes, then
 | 16 | `json_input.zsh` | `--jsonstring`, `--jsonfile`, JSON arrays for checkboxes, selectitems, textfields, images |
 | 17 | `fullscreen_blur.zsh` | `--fullscreen`, `--blurscreen`, `--hideotherapps` |
 | 18 | `misc_features.zsh` | `--helpmessage`, `--infotext`, `--infobox`, `--vieworder`, `--quitkey`, `--sound`, `--showsoundcontrols`, `--displaylog`, `--loghistory`, `--debug`, `--eula`, `--alwaysreturninput`, auth key/checksum explanation |
+| 19 | `inspect_mode.zsh` | `--inspect-mode`, `--inspect-config`, `DIALOG_INSPECT_CONFIG`, inspect JSON (`preset`, `logMonitor`, `sideMessage`, `items`, `autoEnableButton`) |
 
 ## Running Individual Demos
 
@@ -59,5 +60,5 @@ Each demo script is self-contained:
 - Demos that use `--blurscreen` or `--fullscreen` will briefly take over the display
 - Notification demos require notification permissions for swiftDialog
 - Some image demos use system desktop pictures which may vary by macOS version
-- The `--inspect-mode` and `--inspect-config` arguments are excluded from this demo set. Run `dilaog --inspect-mode` with no arguments for options.
-  - See the [Inspect Mode](https://swiftdialog.app/advanced/inspect-mode/) documentation for more info.
+- Demo 19 covers `--inspect-mode` and config-driven usage with a deterministic local simulation.
+- See the [Inspect Mode](https://swiftdialog.app/advanced/inspect-mode/) documentation for additional presets and options.

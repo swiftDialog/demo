@@ -92,13 +92,14 @@ show_selector() {
         --checkbox "16. JSON Input Demo" \
         --checkbox "17. Full Screen & Blur" \
         --checkbox "18. View Order & Misc Features" \
+        --checkbox "19. Inspect Mode (config presets - log monitor - item auto-complete)" \
         --button1text "▶ Start Demos" \
         --button2text "Back" \
         --infotext "Tip: check all for the full tour" \
         --ontop \
         --moveable \
         --width 720 \
-        --height 650 \
+        --height 690 \
         --resizable \
         --json 2>/dev/null) || return $?
 
@@ -186,6 +187,7 @@ main() {
             ["16. JSON Input Demo"]="16_json_input.zsh"
             ["17. Full Screen & Blur"]="17_fullscreen_blur.zsh"
             ["18. View Order & Misc Features"]="18_misc_features.zsh"
+            ["19. Inspect Mode (config presets - log monitor - item auto-complete)"]="19_inspect_mode.zsh"
         )
 
         # Parse JSON output to find checked items

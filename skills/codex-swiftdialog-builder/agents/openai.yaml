@@ -1,0 +1,5 @@
+interface:
+  display_name: "Codex swiftDialog Builder"
+  short_description: "Codex-native swiftDialog shell script helper"
+  brand_color: "#007AFF"
+  default_prompt: "Use $codex-swiftdialog-builder to create a repo-style swiftDialog shell script for my workflow."

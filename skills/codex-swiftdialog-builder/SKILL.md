@@ -23,7 +23,7 @@ See [references/builder-first.md](references/builder-first.md) when you need the
 
 ## Intake Workflow
 
-Before writing code, collect the minimum product requirements:
+Use the following as a reasoning checklist before writing code. **Do not ask the user clarifying questions** — fill gaps with the smallest safe assumption, state it in one line, and proceed immediately.
 
 - What the script is trying to accomplish
 - Who the script is for and when it runs
@@ -32,7 +32,7 @@ Before writing code, collect the minimum product requirements:
 - Whether work continues after the first dialog and needs progress, status, or blocking UI
 - What success, failure, skip, or cancel should do
 
-If the user leaves gaps, make the smallest safe assumption and state it briefly.
+For straightforward requests (a single dialog, an acknowledgment gate, a confirmation prompt), proceed directly — no clarification needed. Only ask the user a question if a gap would materially change the tier or cause the wrong output to be generated.
 
 ## Tier Selection
 

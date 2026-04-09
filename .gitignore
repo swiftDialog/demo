@@ -22,10 +22,3 @@ Icon?
 .zcompdump*
 .zcompcache/
 *.zwc
-
-### Project temp
-.deployDDMOSReminder.zsh
-.deployVersion.txt
-
-### Local guidance
-AGENTS.md

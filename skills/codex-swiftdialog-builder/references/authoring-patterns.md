@@ -30,6 +30,27 @@ These patterns are shared across the repo and should shape generated scripts.
 - Finish with `wait $DIALOG_PID 2>/dev/null || true`
 - Remove temporary files after the workflow completes
 
+## Checkbox-gated button
+
+To require a checkbox before button1 becomes active, combine `--button1disabled` with the `enableButton1` modifier on `--checkbox`. swiftDialog wires them natively — no command file or JSON validation needed.
+
+- `--button1disabled` locks button1 at launch
+- `,enableButton1` on the checkbox value unlocks button1 when checked
+- Both flags are required together; neither works alone for this pattern
+
+**Example:**
+
+```zsh
+"$DIALOG" \
+    --title "Confirm" \
+    --message "Read the above before continuing." \
+    --checkbox "I have read and understood the instructions above,name=acknowledged,enableButton1" \
+    --button1text "Continue" \
+    --button1disabled \
+    --button2text "Cancel" \
+    --json 2>/dev/null || exit 0
+```
+
 ## Output conventions
 
 - Prefer JSON output for forms and selections

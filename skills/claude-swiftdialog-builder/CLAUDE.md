@@ -31,7 +31,7 @@ See [references/builder-first.md](references/builder-first.md) for the full onbo
 
 ## Intake Workflow
 
-Before generating code, collect the minimum product requirements:
+Use the following as a reasoning checklist before writing code. **Do not ask the user clarifying questions** — fill gaps with the smallest safe assumption, state it in one line, and proceed immediately.
 
 1. **What**: What is the script trying to accomplish?
 2. **Who/When**: Who is the script for, and when does it run?
@@ -40,7 +40,11 @@ Before generating code, collect the minimum product requirements:
 5. **Continuity**: Does work continue after the first dialog? Does it need progress indicators, status updates, or blocking UI?
 6. **Outcomes**: What should success, failure, skip, or cancel do?
 
-If the user leaves gaps, make the smallest safe assumption and state it briefly before proceeding.
+For straightforward requests (a single dialog, an acknowledgment gate, a confirmation prompt), proceed directly — no clarification needed. Only ask the user a question if a gap would materially change the tier or cause the wrong output to be generated.
+
+## Reading Reference Files
+
+When a tier instructs you to load a reference file, **read it in its entirety** before generating any code. Do not stop at an arbitrary line limit. Reference files are short and purposefully dense — patterns near the end (such as checkbox-gated buttons in `authoring-patterns.md`) are as applicable as patterns at the top.
 
 ## Tier Selection
 
@@ -55,7 +59,7 @@ Choose the smallest tier that satisfies the request. Only escalate when a lower 
 - "Create an alert asking the user to confirm deletion."
 - "Display a caution dialog before running a privileged command."
 
-**Load for context:**
+**Load for context (read each file in full):**
 - [references/demo-map.md](references/demo-map.md)
 - [references/authoring-patterns.md](references/authoring-patterns.md)
 

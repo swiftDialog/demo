@@ -26,11 +26,14 @@ Each skill lives in its own subdirectory and may include:
 
 ### [`codex-swiftdialog-builder`](./codex-swiftdialog-builder/)
 
-Helps **GitHub Copilot/Codex** create or revise swiftDialog-enabled macOS shell scripts using the patterns in this repo.
+Helps **GitHub Copilot / Codex** build or revise repo-aligned swiftDialog shell scripts.
 
 - **Main file**: `SKILL.md`
 - **Platform**: GitHub Copilot, OpenAI Codex
-- **Invocation**: `Use $codex-swiftdialog-builder to create a repo-style swiftDialog shell script.`
+- **Invocation**:
+```text
+Review skills/codex-swiftdialog-builder/SKILL.md and use it to create an internal-use swiftDialog shell script for our team. The script should display on-screen instructions and require the user to explicitly acknowledge them before proceeding. Treat this as an internal workflow, not a public-facing demo.
+```
 
 ### [`claude-swiftdialog-builder`](./claude-swiftdialog-builder/)
 
@@ -38,7 +41,10 @@ Helps **Claude Sonnet** create or revise swiftDialog-enabled macOS shell scripts
 
 - **Main file**: `CLAUDE.md`
 - **Platform**: Claude (Anthropic)
-- **Invocation**: Upload as project knowledge or reference directly: `Using the swiftDialog builder skill, create...`
+- **Invocation**:
+```text
+Review skills/claude-swiftdialog-builder/CLAUDE.md and use it to create an internal-use swiftDialog shell script for our team. The script should display on-screen instructions and require the user to explicitly acknowledge them before proceeding. Treat this as an internal workflow, not a public-facing demo.
+```
 
 ## Usage
 
@@ -52,16 +58,10 @@ Use $codex-swiftdialog-builder to create a form that collects hostname and email
 
 ### For Claude Sonnet
 
-Upload the skill folder as project knowledge or attach/reference the main instruction file:
+Reference the skill's main instruction file directly in your prompt:
 
 ```
-Using the swiftDialog builder skill, create a progress dialog with live updates.
-```
-
-Alternatively, point Claude directly to the instruction file:
-
-```
-Review CLAUDE.md in skills/claude-swiftdialog-builder/, then create a dialog for Mac setup.
+Review skills/claude-swiftdialog-builder/CLAUDE.md and use it to create a progress dialog with live updates.
 ```
 
 ### For Other AI Assistants

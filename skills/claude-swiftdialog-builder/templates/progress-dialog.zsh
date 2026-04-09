@@ -2,6 +2,7 @@
 # Starter: Progress and live status dialog
 
 DIALOG="/usr/local/bin/dialog"
+LOGGED_IN_USER=""
 CMD_FILE=""
 
 cleanup() {
@@ -11,8 +12,34 @@ cleanup() {
 }
 trap cleanup EXIT
 
+current_logged_in_user() {
+    LOGGED_IN_USER=$(/bin/echo "show State:/Users/ConsoleUser" | /usr/sbin/scutil | /usr/bin/awk '/Name :/ { print $3 }')
+
+    if [[ -z "$LOGGED_IN_USER" || "$LOGGED_IN_USER" == "loginwindow" ]]; then
+        LOGGED_IN_USER=""
+        return 1
+    fi
+
+    if ! /usr/bin/id -u "$LOGGED_IN_USER" >/dev/null 2>&1; then
+        LOGGED_IN_USER=""
+        return 1
+    fi
+
+    return 0
+}
+
+prepare_file_for_dialog_user() {
+    local target_file="$1"
+
+    [[ -n "$target_file" && -e "$target_file" ]] || return 1
+    current_logged_in_user || return 1
+    /usr/sbin/chown "$LOGGED_IN_USER" "$target_file" || return 1
+    /bin/chmod 600 "$target_file" || return 1
+}
+
 # --- Launch dialog ---
-CMD_FILE=$(mktemp -t dialog.XXXXXX)
+CMD_FILE=$(mktemp "/var/tmp/dialog.XXXXXX")
+prepare_file_for_dialog_user "$CMD_FILE" || exit 1
 # Adjust these static dimensions to fit your real message and list items.
 
 "$DIALOG" \

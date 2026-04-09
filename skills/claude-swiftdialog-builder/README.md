@@ -120,7 +120,7 @@ Generated scripts follow these conventions:
 - Optional `2>/dev/null` when quieter stderr is intentional during capture
 - `|| exit 0` for skip/cancel flows
 - `|| true` for final non-fatal steps
-- `mktemp`-based command-file cleanup and `wait $DIALOG_PID 2>/dev/null || true` for background dialogs
+- `/var/tmp` command-file handling with logged-in-user ownership handoff for root-run workflows, plus `wait $DIALOG_PID 2>/dev/null || true` for background dialogs
 - Deliberate window sizing because `--width` and `--height` are static
 
 See [references/authoring-patterns.md](references/authoring-patterns.md) for complete details.

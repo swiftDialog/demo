@@ -33,12 +33,14 @@ The main controller uses swiftDialog itself — pick demos with checkboxes, then
 - [`SKILL.md`](skills/codex-swiftdialog-builder/SKILL.md) — Codex workflow and tier selection
 - [`references/`](skills/codex-swiftdialog-builder/references/) — Demo mapping and authoring guidance
 - [`assets/templates/`](skills/codex-swiftdialog-builder/assets/templates/) — Starter shell scripts
+- Includes the repo's `/var/tmp` plus ownership-handoff pattern for root-run command-file workflows
 
 **[`claude-swiftdialog-builder`](skills/claude-swiftdialog-builder/)** — For Claude Sonnet
 
 - [`CLAUDE.md`](skills/claude-swiftdialog-builder/CLAUDE.md) — Claude workflow and tier selection
 - [`references/`](skills/claude-swiftdialog-builder/references/) — Demo mapping and authoring guidance
 - [`templates/`](skills/claude-swiftdialog-builder/templates/) — Starter shell scripts
+- Includes the repo's `/var/tmp` plus ownership-handoff pattern for root-run command-file workflows
 
 Both skills follow the same repo conventions and produce identical script output — choose the one that matches your AI platform. See [`skills/README.md`](skills/README.md) for detailed usage instructions.
 

@@ -14,7 +14,7 @@ A collection of zsh scripts that demonstrate every major feature of [swiftDialog
 git clone https://github.com/swiftDialog/demo.git swiftDialog-demo
 
 # or download the zip
-curl -sL "https://github.com/swiftDialog/demo/archive/refs/heads/main.zip" -o swiftDialog-demo.zip && unzip swiftDialog-demo.zip -d swiftDialog-demo 
+curl -sL "https://github.com/swiftDialog/demo/archive/refs/heads/main.zip" -o swiftDialog-demo.zip && unzip swiftDialog-demo.zip -d swiftDialog-demo
 
 cd swiftDialog-demo
 ./run_demos.zsh

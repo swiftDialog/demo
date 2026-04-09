@@ -32,11 +32,13 @@ Builder mode is good for:
 
 Builder mode output is not production-ready when workflows need:
 
+- Coverage of every swiftDialog feature
 - Repo-style cleanup and error handling
 - Live updates via command files
 - JSON output handling and validation
 - Inspect-mode patterns grounded in these demos
 - Background dialog management with proper PID handling and wait logic
+- Window sizing tuned for real content; `--width` and `--height` remain static values that need deliberate sizing
 
 Move beyond Builder mode once the user understands the basics and is ready for repo-grounded implementation.
 

@@ -10,10 +10,17 @@
 #   bannerimage:, bannertext:, webcontent:, video:, quit:
 
 DIALOG="/usr/local/bin/dialog"
-CMD_FILE="/var/tmp/dialog.log"
+CMD_FILE=""
 BANNER_IMAGE="/System/Library/CoreServices/DefaultDesktop.heic"
 
-rm -f "$CMD_FILE"
+cleanup() {
+    if [[ -n "$CMD_FILE" ]]; then
+        rm -f "$CMD_FILE"
+    fi
+}
+trap cleanup EXIT
+
+CMD_FILE=$(mktemp -t dialog.XXXXXX)
 
 # Launch the dialog
 "$DIALOG" \
@@ -130,7 +137,7 @@ sleep 2
 echo "progress: 12" >> "$CMD_FILE"
 echo "progresstext: Resizing window..." >> "$CMD_FILE"
 echo "infotext: Step 12 of 19" >> "$CMD_FILE"
-echo "message: Window dimensions can be changed live!\n\nUsing \`width:\` and \`height:\` via the command file." >> "$CMD_FILE"
+echo "message: Window dimensions can be changed live!\n\nThey are still static values, so size them for the content you plan to show.\n\nUsing \`width:\` and \`height:\` via the command file." >> "$CMD_FILE"
 echo "width: 900" >> "$CMD_FILE"
 echo "height: 300" >> "$CMD_FILE"
 sleep 2
@@ -203,4 +210,4 @@ sleep 3
 echo "quit:" >> "$CMD_FILE"
 
 wait $DIALOG_PID 2>/dev/null || true
-rm -f "$CMD_FILE"
+cleanup

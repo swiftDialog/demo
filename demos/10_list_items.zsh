@@ -5,7 +5,14 @@
 #               (list:, listitem:, add, delete, index, status keywords)
 
 DIALOG="/usr/local/bin/dialog"
-CMD_FILE="/var/tmp/dialog.log"
+CMD_FILE=""
+
+cleanup() {
+    if [[ -n "$CMD_FILE" ]]; then
+        rm -f "$CMD_FILE"
+    fi
+}
+trap cleanup EXIT
 
 # --- Simple list ---
 "$DIALOG" \
@@ -25,7 +32,8 @@ CMD_FILE="/var/tmp/dialog.log"
     --json || exit 0
 
 # --- List with live status updates via command file ---
-rm -f "$CMD_FILE"
+cleanup
+CMD_FILE=$(mktemp -t dialog.XXXXXX)
 
 "$DIALOG" \
     --title "Installation Progress" \
@@ -68,10 +76,11 @@ echo "button1: enable" >> "$CMD_FILE"
 echo "message: Installation complete. Docker Desktop requires a restart." >> "$CMD_FILE"
 
 wait $DIALOG_PID 2>/dev/null || true
-rm -f "$CMD_FILE"
+cleanup
 
 # --- List with add/delete via command file ---
-rm -f "$CMD_FILE"
+cleanup
+CMD_FILE=$(mktemp -t dialog.XXXXXX)
 
 "$DIALOG" \
     --title "Dynamic List Management" \
@@ -122,7 +131,7 @@ echo "button1text: Next →" >> "$CMD_FILE"
 echo "button1: enable" >> "$CMD_FILE"
 
 wait $DIALOG_PID 2>/dev/null || true
-rm -f "$CMD_FILE"
+cleanup
 
 # --- Custom SF Symbol status ---
 "$DIALOG" \

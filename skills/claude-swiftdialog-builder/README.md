@@ -117,10 +117,11 @@ Generated scripts follow these conventions:
 - `DIALOG="/usr/local/bin/dialog"` defined near the top
 - Quoted variable expansions
 - `[[ ]]` conditionals (not `[ ]`)
-- `2>/dev/null` when capturing dialog output
+- Optional `2>/dev/null` when quieter stderr is intentional during capture
 - `|| exit 0` for skip/cancel flows
 - `|| true` for final non-fatal steps
-- Command-file cleanup and `wait $DIALOG_PID 2>/dev/null || true` for background dialogs
+- `mktemp`-based command-file cleanup and `wait $DIALOG_PID 2>/dev/null || true` for background dialogs
+- Deliberate window sizing because `--width` and `--height` are static
 
 See [references/authoring-patterns.md](references/authoring-patterns.md) for complete details.
 
@@ -128,7 +129,7 @@ See [references/authoring-patterns.md](references/authoring-patterns.md) for com
 
 For newcomers, Claude will direct them to the official [swiftDialog Builder page](https://swiftdialog.app/builder/builder/) for orientation before moving into script generation.
 
-This helps new users understand swiftDialog's capabilities and experiment with arguments interactively before committing to a full implementation.
+This helps new users understand swiftDialog's capabilities and experiment with arguments interactively before committing to a full implementation. Builder is useful, but it is not comprehensive and it does not remove the need for cleanup, sizing, and workflow decisions in the final script.
 
 ## Self-Contained Design
 

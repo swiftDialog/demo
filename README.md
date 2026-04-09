@@ -24,7 +24,7 @@ The main controller uses swiftDialog itself — pick demos with checkboxes, then
 
 ## AI Skills for swiftDialog Authoring
 
-**New to swiftDialog?** Start with the official [swiftDialog Builder page](https://swiftdialog.app/builder/builder/) for orientation, then use one of the repo-contained skill packs to turn that understanding into repo-style shell scripts with your preferred AI assistant.
+**New to swiftDialog?** Start with the official [swiftDialog Builder page](https://swiftdialog.app/builder/builder/) for orientation and visual prototyping, then use one of the repo-contained skill packs to turn that understanding into repo-style shell scripts. Builder is useful, but it is not comprehensive and it does not replace final sizing, cleanup, and workflow decisions.
 
 ### Available Skills
 

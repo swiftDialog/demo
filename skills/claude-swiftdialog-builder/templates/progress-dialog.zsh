@@ -1,7 +1,11 @@
 #!/bin/zsh
-# Starter: Progress and live status dialog
+# Starter: Progress and live status dialog (Jamf/root-run workflow)
 
 DIALOG="/usr/local/bin/dialog"
+<<<<<<< HEAD
+LOGGED_IN_USER=""
+=======
+>>>>>>> origin/main
 CMD_FILE=""
 
 cleanup() {
@@ -11,8 +15,47 @@ cleanup() {
 }
 trap cleanup EXIT
 
+current_logged_in_user() {
+    LOGGED_IN_USER=$(/bin/echo "show State:/Users/ConsoleUser" | /usr/sbin/scutil | /usr/bin/awk '/Name :/ { print $3 }')
+
+    if [[ -z "$LOGGED_IN_USER" || "$LOGGED_IN_USER" == "loginwindow" ]]; then
+        LOGGED_IN_USER=""
+        return 1
+    fi
+
+    if ! /usr/bin/id -u "$LOGGED_IN_USER" >/dev/null 2>&1; then
+        LOGGED_IN_USER=""
+        return 1
+    fi
+
+    return 0
+}
+
+prepare_file_for_dialog_user() {
+    local target_file="$1"
+
+    [[ -n "$target_file" && -e "$target_file" ]] || return 1
+    current_logged_in_user || return 1
+    /usr/sbin/chown "$LOGGED_IN_USER" "$target_file" || return 1
+    /bin/chmod 600 "$target_file" || return 1
+}
+
 # --- Launch dialog ---
+<<<<<<< HEAD
+if [[ "$EUID" -ne 0 ]]; then
+    echo "Error: This starter assumes the script is launched as root. For user-run workflows, use CMD_FILE=\$(mktemp -t dialog.XXXXXX) instead." >&2
+    exit 1
+fi
+
+CMD_FILE=$(mktemp "/var/tmp/dialog.XXXXXX")
+if ! prepare_file_for_dialog_user "$CMD_FILE"; then
+    echo "Error: Unable to hand the command file to the logged-in user. Confirm that a console user is present before launching swiftDialog." >&2
+    exit 1
+fi
+
+=======
 CMD_FILE=$(mktemp -t dialog.XXXXXX)
+>>>>>>> origin/main
 # Adjust these static dimensions to fit your real message and list items.
 
 "$DIALOG" \

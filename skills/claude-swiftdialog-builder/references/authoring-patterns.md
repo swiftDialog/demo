@@ -55,7 +55,13 @@ echo "$result" | jq '.'
 
 ## Background Dialogs and Command Files
 
+<<<<<<< HEAD
+- Create a per-dialog temp file
+- In user-run scripts, prefer `CMD_FILE=$(mktemp -t dialog.XXXXXX)`
+- If the script runs as root but swiftDialog runs for the logged-in GUI user, prefer `/var/tmp` over the root user's private temp directory and hand the file off with `chown`/`chmod`
+=======
 - Create a per-dialog temp file with `CMD_FILE=$(mktemp -t dialog.XXXXXX)`
+>>>>>>> origin/main
 - Use a `cleanup` function plus `trap cleanup EXIT` to remove it automatically
 - Launch the dialog in the background: `"$DIALOG" ... &`
 - Capture PID immediately: `DIALOG_PID=$!`
@@ -64,7 +70,7 @@ echo "$result" | jq '.'
 - Finish with `wait $DIALOG_PID 2>/dev/null || true`
 - Remove temporary files after the workflow completes
 
-**Example structure:**
+**User-run example structure:**
 
 ```zsh
 DIALOG="/usr/local/bin/dialog"
@@ -78,6 +84,55 @@ cleanup() {
 trap cleanup EXIT
 
 CMD_FILE=$(mktemp -t dialog.XXXXXX)
+<<<<<<< HEAD
+
+"$DIALOG" \
+    --title "Installing" \
+    --progress 3 \
+    --commandfile "$CMD_FILE" \
+    --button1text "Please wait..." \
+    --button1disabled &
+
+DIALOG_PID=$!
+sleep 1
+
+echo "progress: 1" >> "$CMD_FILE"
+echo "progresstext: Step 1/3" >> "$CMD_FILE"
+
+wait $DIALOG_PID 2>/dev/null || true
+```
+
+**Jamf/root-run example structure:**
+
+```zsh
+DIALOG="/usr/local/bin/dialog"
+CMD_FILE=""
+
+cleanup() {
+    if [[ -n "$CMD_FILE" ]]; then
+        rm -f "$CMD_FILE"
+    fi
+}
+trap cleanup EXIT
+
+current_logged_in_user() {
+    LOGGED_IN_USER=$(/bin/echo "show State:/Users/ConsoleUser" | /usr/sbin/scutil | /usr/bin/awk '/Name :/ { print $3 }')
+    [[ -n "$LOGGED_IN_USER" && "$LOGGED_IN_USER" != "loginwindow" ]] || return 1
+    /usr/bin/id -u "$LOGGED_IN_USER" >/dev/null 2>&1
+}
+
+prepare_file_for_dialog_user() {
+    local target_file="$1"
+
+    current_logged_in_user || return 1
+    /usr/sbin/chown "$LOGGED_IN_USER" "$target_file" || return 1
+    /bin/chmod 600 "$target_file" || return 1
+}
+
+CMD_FILE=$(mktemp "/var/tmp/dialog.XXXXXX")
+prepare_file_for_dialog_user "$CMD_FILE" || exit 1
+=======
+>>>>>>> origin/main
 
 # Launch dialog in background
 "$DIALOG" \
@@ -207,7 +262,11 @@ trap cleanup EXIT
 Follow these conventions from the demos:
 
 - `DIALOG="/usr/local/bin/dialog"`
+<<<<<<< HEAD
+- `CMD_FILE=$(mktemp "/var/tmp/dialog.XXXXXX")` for root-run command-file flows that hand work to the logged-in GUI user
+=======
 - `CMD_FILE=$(mktemp -t dialog.XXXXXX)`
+>>>>>>> origin/main
 - `DIALOG_PID` (for background dialog process ID)
 - `result` (for captured dialog output)
 

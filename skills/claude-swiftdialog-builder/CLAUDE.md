@@ -161,7 +161,13 @@ Match this repo's conventions unless the user explicitly asks otherwise:
 - When capturing JSON: `echo "$result" | jq '.'`
 
 ### Background Dialogs and Command Files
+<<<<<<< HEAD
+- Create a per-dialog temp file
+- In user-run scripts, prefer `CMD_FILE=$(mktemp -t dialog.XXXXXX)`
+- If the script runs as root but swiftDialog runs for the logged-in GUI user, prefer `/var/tmp` and hand the command file off with `chown`/`chmod` instead of relying on the root user's private temp directory
+=======
 - Set `CMD_FILE=$(mktemp -t dialog.XXXXXX)`
+>>>>>>> origin/main
 - Launch in background: `"$DIALOG" ... &`
 - Capture PID: `DIALOG_PID=$!` so the script can `wait` on the launched dialog command
 - Write updates: `echo "key: value" >> "$CMD_FILE"`

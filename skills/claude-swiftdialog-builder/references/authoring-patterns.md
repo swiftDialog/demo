@@ -55,9 +55,13 @@ echo "$result" | jq '.'
 
 ## Background Dialogs and Command Files
 
+<<<<<<< HEAD
 - Create a per-dialog temp file
 - In user-run scripts, prefer `CMD_FILE=$(mktemp -t dialog.XXXXXX)`
 - If the script runs as root but swiftDialog runs for the logged-in GUI user, prefer `/var/tmp` over the root user's private temp directory and hand the file off with `chown`/`chmod`
+=======
+- Create a per-dialog temp file with `CMD_FILE=$(mktemp -t dialog.XXXXXX)`
+>>>>>>> origin/main
 - Use a `cleanup` function plus `trap cleanup EXIT` to remove it automatically
 - Launch the dialog in the background: `"$DIALOG" ... &`
 - Capture PID immediately: `DIALOG_PID=$!`
@@ -80,6 +84,7 @@ cleanup() {
 trap cleanup EXIT
 
 CMD_FILE=$(mktemp -t dialog.XXXXXX)
+<<<<<<< HEAD
 
 "$DIALOG" \
     --title "Installing" \
@@ -126,6 +131,8 @@ prepare_file_for_dialog_user() {
 
 CMD_FILE=$(mktemp "/var/tmp/dialog.XXXXXX")
 prepare_file_for_dialog_user "$CMD_FILE" || exit 1
+=======
+>>>>>>> origin/main
 
 # Launch dialog in background
 "$DIALOG" \
@@ -255,7 +262,11 @@ trap cleanup EXIT
 Follow these conventions from the demos:
 
 - `DIALOG="/usr/local/bin/dialog"`
+<<<<<<< HEAD
 - `CMD_FILE=$(mktemp "/var/tmp/dialog.XXXXXX")` for root-run command-file flows that hand work to the logged-in GUI user
+=======
+- `CMD_FILE=$(mktemp -t dialog.XXXXXX)`
+>>>>>>> origin/main
 - `DIALOG_PID` (for background dialog process ID)
 - `result` (for captured dialog output)
 

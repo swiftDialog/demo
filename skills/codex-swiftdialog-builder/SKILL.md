@@ -87,7 +87,11 @@ Match this repo's conventions unless the user explicitly asks otherwise:
 - `--json` output is on stdout; use `2>/dev/null` only when quieter stderr is intentional
 - Use `|| exit 0` for skip/cancel flows and `|| true` for the final non-fatal step
 - For background dialogs, capture `DIALOG_PID=$!` so the script can `wait` on the launched dialog command; do not teach `dialogcli --pid` as a general-purpose user pattern
+<<<<<<< HEAD
 - For command-file flows, use `trap cleanup EXIT` and clean up after. In user-run scripts, prefer `CMD_FILE=$(mktemp -t dialog.XXXXXX)`. When a Jamf/root-run script needs the logged-in GUI user to read the command file, prefer a `/var/tmp` command file plus explicit ownership/permission handoff instead of relying on the root user's private temp directory
+=======
+- For command-file flows, use `CMD_FILE=$(mktemp -t dialog.XXXXXX)`, `trap cleanup EXIT`, and clean up after
+>>>>>>> origin/main
 - Treat `--width` and `--height` as static dimensions; size them for the actual message, lists, checkboxes, and images being shown
 
 When writing code, cite the closest demo pattern by number and feature, then adapt it. Do not invent abstractions when a readable demo pattern already exists in this repo.

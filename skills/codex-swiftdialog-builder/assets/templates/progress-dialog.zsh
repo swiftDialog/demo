@@ -2,15 +2,18 @@
 # Starter: Progress and live status dialog
 
 DIALOG="/usr/local/bin/dialog"
-CMD_FILE="/var/tmp/dialog.log"
+CMD_FILE=""
 
 cleanup() {
-    rm -f "$CMD_FILE"
+    if [[ -n "$CMD_FILE" ]]; then
+        rm -f "$CMD_FILE"
+    fi
 }
 trap cleanup EXIT
 
 # --- Launch dialog ---
-rm -f "$CMD_FILE"
+CMD_FILE=$(mktemp -t dialog.XXXXXX)
+# Adjust these static dimensions to fit your real message and list items.
 
 "$DIALOG" \
     --title "Installing Components" \

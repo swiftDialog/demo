@@ -4,6 +4,8 @@ This `skills/` directory holds AI-assistant instruction packs for `swiftDialog_d
 
 **These skills are not runnable demos.** They are guidance packages intended to help AI assistants (Codex, Claude, etc.) understand how to work within this repository, reuse the existing demo patterns, and produce output that matches the repo's conventions.
 
+They treat the official Builder page as onboarding help, not final output, and normalize repo patterns such as `mktemp`-based command files and content-aware window sizing.
+
 ## Purpose
 
 Use the files in this directory when you want an AI assistant to:

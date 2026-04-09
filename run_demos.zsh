@@ -15,7 +15,6 @@ set -euo pipefail
 # ---------------------------------------------------------------------------
 DIALOG="/usr/local/bin/dialog"
 DEMO_DIR="$(cd "$(dirname "$0")/demos" && pwd)"
-COMMAND_FILE="/var/tmp/dialog.log"
 ICON_APP="/Applications/Utilities/Terminal.app"
 DEMO_VERSION="1.0"
 
@@ -30,7 +29,6 @@ PURPLE="#AF52DE"
 # Helpers
 # ---------------------------------------------------------------------------
 cleanup() {
-    rm -f "$COMMAND_FILE" 2>/dev/null
     # Kill any lingering dialog processes we may have spawned
     killall dialog 2>/dev/null || true
 }
@@ -149,12 +147,6 @@ main() {
     if [[ ! -x "$DIALOG" ]]; then
         echo "ERROR: swiftDialog not found at ${DIALOG}" >&2
         echo "Install from https://github.com/swiftDialog/swiftDialog/releases" >&2
-        exit 1
-    fi
-
-    # Check jq is available
-    if ! command -v jq &>/dev/null; then
-        echo "ERROR: jq not found. Install with: brew install jq" >&2
         exit 1
     fi
 

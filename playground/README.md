@@ -40,6 +40,8 @@ If you're new to swiftDialog, start with the official [swiftDialog Builder](http
 - See results in real-time
 - Understand available features visually
 
+Builder is helpful for orientation, but it is not comprehensive and it does not replace final script decisions such as cleanup, live-update patterns, or sizing windows for real content.
+
 
 ### 1.3 Choose Your AI Platform
 
@@ -277,8 +279,7 @@ result=$("$DIALOG" \
   --textfield "Email,required,regex=^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$,regexerror=Please enter a valid email address" \
   --selecttitle "Department,required" \
   --selectvalues "IT,HR,Sales,Marketing,Finance" \
-  --json \
-  2>/dev/null) || exit 2
+  --json) || exit 2
 
 # --- Output JSON ---
 echo "$result" | jq '.'
@@ -347,7 +348,7 @@ The generated script will include:
 - Custom error message: `regexerror=Please enter a valid email address`
 - Department dropdown: `--selecttitle "Department,required"`
 - `--json` flag for structured output
-- Error suppression: `2>/dev/null`
+- Optional `2>/dev/null` when quieter stderr is intentional
 - Exit code handling: `|| exit 2` on cancel, `exit 0` on success
 - JSON output via `jq '.'`
 
@@ -491,12 +492,12 @@ Loading for reference:
 
 The generated script will include:
 
-- `CMD_FILE="/var/tmp/dialog.log"` for live updates
-- `rm -f "$CMD_FILE"` to clean up before use
+- `CMD_FILE=$(mktemp -t dialog.XXXXXX)` for live updates
+- `trap cleanup EXIT` plus `rm -f "$CMD_FILE"` for cleanup
 - Background dialog launch: `"$DIALOG" ... &`
 - Process ID capture: `DIALOG_PID=$!`
 - Initial list items with `pending` status
-- `trap cleanup EXIT` for automatic cleanup
+- Window sizing that accounts for the real message and list content because `--width` and `--height` are static
 - Progress tracking in increments (25% per app)
 - Command file updates:
   ```zsh
@@ -716,7 +717,8 @@ company apps instead of generic progress steps.
 ```
 This script doesn't match the conventions in AGENTS.md. Can you revise
 it to use [[ ]] instead of [ ] for tests, quote all variable expansions,
-and suppress stderr with 2>/dev/null?
+use mktemp for command files, and only suppress stderr with 2>/dev/null
+when quieter capture is intentional?
 ```
 
 #### Issue: "The AI chose the wrong tier"
@@ -758,7 +760,7 @@ Ensure you're running swiftDialog 3+ on macOS 15+. Some flags may not work on ol
 **Solution:** Always pipe JSON output through `jq` for validation:
 
 ```zsh
-result=$("$DIALOG" ... --json 2>/dev/null) || exit 2
+result=$("$DIALOG" ... --json) || exit 2
 echo "$result" | jq '.' || { echo "Invalid JSON output"; exit 1; }
 ```
 

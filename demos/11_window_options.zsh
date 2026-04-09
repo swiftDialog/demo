@@ -31,7 +31,7 @@ DIALOG="/usr/local/bin/dialog"
 # --- Custom dimensions ---
 "$DIALOG" \
     --title "Custom Dimensions" \
-    --message "Use \`--width\` and \`--height\` for precise control.\n\nThis window is **900 × 300** points." \
+    --message "Use \`--width\` and \`--height\` for precise control.\n\nThese values are static, so choose dimensions that fit the content you plan to show.\n\nThis window is **900 × 300** points." \
     --icon "SF=ruler,colour=#FF9500" \
     --width 900 \
     --height 300 \

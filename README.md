@@ -14,7 +14,7 @@ A collection of zsh scripts that demonstrate every major feature of [swiftDialog
 git clone https://github.com/swiftDialog/demo.git swiftDialog-demo
 
 # or download the zip
-curl -sL "https://github.com/swiftDialog/demo/archive/refs/heads/main.zip" -o swiftDialog-demo.zip && unzip swiftDialog-demo.zip -d swiftDialog-demo 
+curl -sL "https://github.com/swiftDialog/demo/archive/refs/heads/main.zip" -o swiftDialog-demo.zip && unzip swiftDialog-demo.zip -d swiftDialog-demo
 
 cd swiftDialog-demo
 ./run_demos.zsh
@@ -24,7 +24,7 @@ The main controller uses swiftDialog itself — pick demos with checkboxes, then
 
 ## AI Skills for swiftDialog Authoring
 
-**New to swiftDialog?** Start with the official [swiftDialog Builder page](https://swiftdialog.app/builder/builder/) for orientation, then use one of the repo-contained skill packs to turn that understanding into repo-style shell scripts with your preferred AI assistant.
+**New to swiftDialog?** Start with the official [swiftDialog Builder page](https://swiftdialog.app/builder/builder/) for orientation and visual prototyping, then use one of the repo-contained skill packs to turn that understanding into repo-style shell scripts. Builder is useful, but it is not comprehensive and it does not replace final sizing, cleanup, and workflow decisions.
 
 ### Available Skills
 

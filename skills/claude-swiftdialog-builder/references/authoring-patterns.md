@@ -12,7 +12,8 @@ These patterns are shared across the repo and should shape generated scripts.
 ## Dialog Invocation
 
 - Put one argument per line with trailing `\`
-- Capture output as `result=$("$DIALOG" ... --json 2>/dev/null) || exit 0`
+- Capture output as `result=$("$DIALOG" ... --json) || exit 0`
+- Add `2>/dev/null` only when you intentionally want quieter stderr
 - Print captured JSON with `echo "$result" | jq '.'` when the script is a demo or debugging starter
 
 **Example:**
@@ -24,7 +25,7 @@ result=$("$DIALOG" \
     --textfield "Name,required,name=username" \
     --button1text "Submit" \
     --button2text "Cancel" \
-    --json 2>/dev/null) || exit 0
+    --json) || exit 0
 
 echo "$result" | jq '.'
 ```
@@ -45,12 +46,20 @@ echo "$result" | jq '.'
 "$DIALOG" --message "Complete!" --button1text "Done" --json || true
 ```
 
+## Window Sizing
+
+- `--width` and `--height` are static values, not auto-fit hints
+- Size windows for the actual content you are showing: long messages, lists, checkbox groups, images, and infoboxes all change the space needed
+- Builder previews are useful, but final scripts still need sizing judgment after testing real content
+- Start from `demos/11_window_options.zsh` and adjust based on the workflow
+
 ## Background Dialogs and Command Files
 
-- Set `CMD_FILE="/var/tmp/dialog.log"`
-- Remove the command file before use with `rm -f "$CMD_FILE"`
+- Create a per-dialog temp file with `CMD_FILE=$(mktemp -t dialog.XXXXXX)`
+- Use a `cleanup` function plus `trap cleanup EXIT` to remove it automatically
 - Launch the dialog in the background: `"$DIALOG" ... &`
 - Capture PID immediately: `DIALOG_PID=$!`
+- Use `DIALOG_PID` to `wait` on the launched dialog command; do not treat `dialogcli --pid` as a general-purpose scripting pattern
 - Write updates with `echo "key: value" >> "$CMD_FILE"`
 - Finish with `wait $DIALOG_PID 2>/dev/null || true`
 - Remove temporary files after the workflow completes
@@ -59,15 +68,16 @@ echo "$result" | jq '.'
 
 ```zsh
 DIALOG="/usr/local/bin/dialog"
-CMD_FILE="/var/tmp/dialog.log"
+CMD_FILE=""
 
 cleanup() {
-    rm -f "$CMD_FILE"
+    if [[ -n "$CMD_FILE" ]]; then
+        rm -f "$CMD_FILE"
+    fi
 }
 trap cleanup EXIT
 
-# Remove command file before use
-rm -f "$CMD_FILE"
+CMD_FILE=$(mktemp -t dialog.XXXXXX)
 
 # Launch dialog in background
 "$DIALOG" \
@@ -133,7 +143,7 @@ result=$("$DIALOG" \
     --textfield "Email,required,name=email" \
     --selecttitle "Department,required,name=department" \
     --selectvalues "Engineering,Design,Marketing" \
-    --json 2>/dev/null) || exit 0
+    --json) || exit 0
 
 # Named output: {"hostname":"mac-001","email":"user@example.com","department":"Engineering"}
 echo "$result" | jq '.'
@@ -168,15 +178,15 @@ fi
 
 ## Error Suppression
 
-- Suppress stderr with `2>/dev/null` when capturing dialog output
-- This prevents error messages from polluting captured JSON
+- `--json` writes structured output to stdout, while errors are written to stderr
+- Use `2>/dev/null` only when you intentionally want to hide noisy stderr from the user or logs
 
 ```zsh
-# Correct
-result=$("$DIALOG" --json 2>/dev/null)
-
-# Incorrect (stderr will mix with JSON output)
+# Keep stderr visible
 result=$("$DIALOG" --json)
+
+# Quieter capture when desired
+result=$("$DIALOG" --json 2>/dev/null)
 ```
 
 ## Cleanup Patterns
@@ -197,7 +207,7 @@ trap cleanup EXIT
 Follow these conventions from the demos:
 
 - `DIALOG="/usr/local/bin/dialog"`
-- `CMD_FILE="/var/tmp/dialog.log"`
+- `CMD_FILE=$(mktemp -t dialog.XXXXXX)`
 - `DIALOG_PID` (for background dialog process ID)
 - `result` (for captured dialog output)
 

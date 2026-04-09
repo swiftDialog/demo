@@ -17,6 +17,6 @@ result=$("$DIALOG" \
     --button2text "Cancel" \
     --moveable \
     --width 700 \
-    --json 2>/dev/null) || exit 0
+    --json) || exit 0
 
 echo "$result" | jq '.'

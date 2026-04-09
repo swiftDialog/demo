@@ -14,4 +14,17 @@ Do not force Builder-first when the user already has:
 - A concrete prompt with specific fields, buttons, or workflow steps
 - A request that clearly needs command files, JSON, or inspect mode
 
-Builder mode is good for rapid orientation and rough argument discovery. Move beyond it when the user needs repo-style cleanup, error handling, live updates, JSON output handling, or inspect-mode patterns grounded in these demos.
+## What Builder Is Good For
+
+- Rapid orientation to swiftDialog capabilities
+- Visual prototyping and rough argument discovery
+- Quick experimentation before writing a real script
+
+## What Builder Does Not Cover Well
+
+- It is not comprehensive and does not represent every swiftDialog feature
+- Its output is not production-ready when workflows need repo-style cleanup or error handling
+- It does not replace command-file, JSON, or inspect-mode patterns grounded in these demos
+- It does not size windows for you; `--width` and `--height` are static and still need to fit the real content being shown
+
+Move beyond Builder mode once the user is ready for repo-grounded implementation.

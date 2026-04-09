@@ -4,10 +4,18 @@
 #               --timer, --hidetimerbar, --hidetimer, command file updates
 
 DIALOG="/usr/local/bin/dialog"
-CMD_FILE="/var/tmp/dialog.log"
+CMD_FILE=""
+
+cleanup() {
+    if [[ -n "$CMD_FILE" ]]; then
+        rm -f "$CMD_FILE"
+    fi
+}
+trap cleanup EXIT
 
 # --- Interactive progress bar (command file driven) ---
-rm -f "$CMD_FILE"
+cleanup
+CMD_FILE=$(mktemp -t dialog.XXXXXX)
 
 "$DIALOG" \
     --title "Interactive Progress Bar" \
@@ -51,10 +59,11 @@ echo "button1: enable" >> "$CMD_FILE"
 echo "icon: SF=checkmark.circle.fill,colour=#34C759" >> "$CMD_FILE"
 
 wait $DIALOG_PID 2>/dev/null || true
-rm -f "$CMD_FILE"
+cleanup
 
 # --- Progress with increment ---
-rm -f "$CMD_FILE"
+cleanup
+CMD_FILE=$(mktemp -t dialog.XXXXXX)
 
 "$DIALOG" \
     --title "Progress Increment" \
@@ -82,7 +91,7 @@ echo "button1text: Next →" >> "$CMD_FILE"
 echo "button1: enable" >> "$CMD_FILE"
 
 wait $DIALOG_PID 2>/dev/null || true
-rm -f "$CMD_FILE"
+cleanup
 
 # --- Timer bar ---
 "$DIALOG" \
@@ -106,7 +115,8 @@ rm -f "$CMD_FILE"
     --width 600 || true
 
 # --- Progress text alignment ---
-rm -f "$CMD_FILE"
+cleanup
+CMD_FILE=$(mktemp -t dialog.XXXXXX)
 
 "$DIALOG" \
     --title "Progress Text Alignment" \
@@ -132,4 +142,4 @@ done
 echo "progresstext: All done! →" >> "$CMD_FILE"
 
 wait $DIALOG_PID 2>/dev/null || true
-rm -f "$CMD_FILE"
+cleanup

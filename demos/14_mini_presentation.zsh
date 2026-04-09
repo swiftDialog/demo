@@ -4,7 +4,14 @@
 #               --image, --infobox, --autoplay, --webcontent)
 
 DIALOG="/usr/local/bin/dialog"
-CMD_FILE="/var/tmp/dialog.log"
+CMD_FILE=""
+
+cleanup() {
+    if [[ -n "$CMD_FILE" ]]; then
+        rm -f "$CMD_FILE"
+    fi
+}
+trap cleanup EXIT
 
 # --- Mini mode basic ---
 "$DIALOG" \
@@ -17,7 +24,8 @@ CMD_FILE="/var/tmp/dialog.log"
     --json || exit 0
 
 # --- Mini mode with progress ---
-rm -f "$CMD_FILE"
+cleanup
+CMD_FILE=$(mktemp -t dialog.XXXXXX)
 
 "$DIALOG" \
     --mini \
@@ -41,10 +49,11 @@ sleep 0.5
 echo "quit:" >> "$CMD_FILE"
 
 wait $DIALOG_PID 2>/dev/null || true
-rm -f "$CMD_FILE"
+cleanup
 
 # --- Presentation mode with list ---
-rm -f "$CMD_FILE"
+cleanup
+CMD_FILE=$(mktemp -t dialog.XXXXXX)
 
 "$DIALOG" \
     --presentation \
@@ -102,4 +111,4 @@ echo "button1text: Finish" >> "$CMD_FILE"
 echo "button1: enable" >> "$CMD_FILE"
 
 wait $DIALOG_PID 2>/dev/null || true
-rm -f "$CMD_FILE"
+cleanup

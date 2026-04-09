@@ -20,26 +20,31 @@ Reference demos:
 
 Typical workflow:
 
-1. Set `CMD_FILE="/var/tmp/dialog.log"` and remove before use
-2. Launch dialog in background: `"$DIALOG" ... --commandfile "$CMD_FILE" &`
-3. Capture PID: `DIALOG_PID=$!`
-4. Sleep briefly to ensure dialog is ready: `sleep 1`
-5. Write updates: `echo "progress: 1" >> "$CMD_FILE"`
-6. Wait for completion: `wait $DIALOG_PID 2>/dev/null || true`
-7. Clean up: `rm -f "$CMD_FILE"` (ideally via `trap cleanup EXIT`)
+1. Create a per-dialog temp file: `CMD_FILE=$(mktemp -t dialog.XXXXXX)`
+2. Set `trap cleanup EXIT` so the file is always removed
+3. Launch dialog in background: `"$DIALOG" ... --commandfile "$CMD_FILE" &`
+4. Capture PID: `DIALOG_PID=$!` so the script can `wait` on the launched dialog command
+5. Sleep briefly to ensure dialog is ready: `sleep 1`
+6. Write updates: `echo "progress: 1" >> "$CMD_FILE"`
+7. Wait for completion: `wait $DIALOG_PID 2>/dev/null || true`
+8. Clean up: `rm -f "$CMD_FILE"` (or let the trap handle it)
+
+If you set `--width` or `--height`, size them for the real content because those dimensions are static.
 
 Example:
 
 ```zsh
 DIALOG="/usr/local/bin/dialog"
-CMD_FILE="/var/tmp/dialog.log"
+CMD_FILE=""
 
 cleanup() {
-    rm -f "$CMD_FILE"
+    if [[ -n "$CMD_FILE" ]]; then
+        rm -f "$CMD_FILE"
+    fi
 }
 trap cleanup EXIT
 
-rm -f "$CMD_FILE"
+CMD_FILE=$(mktemp -t dialog.XXXXXX)
 
 "$DIALOG" \
     --title "Installing Components" \
@@ -120,7 +125,7 @@ if ! jq empty "$CONFIG_JSON" 2>/dev/null; then
     exit 1
 fi
 
-result=$("$DIALOG" --jsonfile "$CONFIG_JSON" 2>/dev/null) || exit 0
+result=$("$DIALOG" --jsonfile "$CONFIG_JSON") || exit 0
 echo "$result" | jq '.'
 ```
 
@@ -143,7 +148,7 @@ Typical workflow:
 1. Create JSON config defining monitored items, log path, and completion criteria
 2. Validate JSON with `jq empty "$CONFIG_JSON"`
 3. Launch inspect mode: `DIALOG_INSPECT_CONFIG="$CONFIG_JSON" "$DIALOG" --inspect-mode --inspect-config "$CONFIG_JSON" &`
-4. Capture PID: `DIALOG_PID=$!`
+4. Capture PID: `DIALOG_PID=$!` so the script can `wait` on the launched dialog command
 5. Perform background work (write to log, create files)
 6. Wait for dialog completion: `wait $DIALOG_PID 2>/dev/null || true`
 7. Clean up temp files

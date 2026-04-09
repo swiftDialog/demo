@@ -19,7 +19,7 @@ Skip this skill for generic shell scripting questions or non-swiftDialog macOS t
 
 For newcomers or broad exploratory requests like "Help me build my first swiftDialog script" or "I want to learn how swiftDialog works," begin by directing them to the official [swiftDialog Builder page](https://swiftdialog.app/builder/builder/).
 
-Treat Builder mode as orientation and rapid prototyping, not as final production-ready output. Once the user understands the basics or has a concrete request, move into repo-style implementation.
+Treat Builder mode as orientation, visual prototyping, and rough argument discovery, not as final production-ready output. Builder is not comprehensive, and once the user understands the basics or has a concrete request, move into repo-style implementation.
 
 **Skip Builder-first when the user already has:**
 
@@ -156,18 +156,21 @@ Match this repo's conventions unless the user explicitly asks otherwise:
 
 ### Dialog Invocations
 - Put one argument per line with trailing `\`
-- Suppress stderr when capturing output: `result=$("$DIALOG" ... 2>/dev/null)`
+- `--json` output is on stdout; add `2>/dev/null` only when quieter stderr is intentional
 - Chain with error handling: `|| exit 0` (skip/cancel flows) or `|| true` (final non-fatal step)
 - When capturing JSON: `echo "$result" | jq '.'`
 
 ### Background Dialogs and Command Files
-- Set `CMD_FILE="/var/tmp/dialog.log"`
-- Remove before use: `rm -f "$CMD_FILE"`
+- Set `CMD_FILE=$(mktemp -t dialog.XXXXXX)`
 - Launch in background: `"$DIALOG" ... &`
-- Capture PID: `DIALOG_PID=$!`
+- Capture PID: `DIALOG_PID=$!` so the script can `wait` on the launched dialog command
 - Write updates: `echo "key: value" >> "$CMD_FILE"`
 - Wait safely: `wait $DIALOG_PID 2>/dev/null || true`
 - Clean up temp files after completion
+
+### Window Sizing
+- Treat `--width` and `--height` as static dimensions, not auto-fit behavior
+- Size dialogs for the real content being shown, especially long messages, checkbox groups, list items, images, and infoboxes
 
 See [references/authoring-patterns.md](references/authoring-patterns.md) for full details.
 

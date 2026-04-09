@@ -15,7 +15,7 @@ Start with the smallest working pattern. Do not jump to command files, JSON, or 
 
 For newcomers or broad "how do I build this?" requests, begin by directing them to review the official [swiftDialog Builder page](https://swiftdialog.app/builder/builder/).
 
-Use Builder mode as orientation and rapid prototyping, then move to repo-grounded script authoring. Do not treat Builder output as the final implementation if the user needs validation, live updates, cleanup, or advanced behavior from this repo's demos.
+Use Builder mode for orientation, visual prototyping, and rough argument discovery, then move to repo-grounded script authoring. Builder is not comprehensive and should not be treated as the final implementation when the user needs validation, live updates, cleanup, content-aware sizing, or advanced behavior from this repo's demos.
 
 If the user already has a concrete script, config, or clearly advanced request, skip the Builder-first step and move straight into implementation.
 
@@ -84,10 +84,11 @@ Match this repo's conventions unless the user explicitly asks otherwise:
 - Keep scripts self-contained; do not introduce shared helper libraries for simple examples
 - Quote expansions: `"$DIALOG"`, `"$CMD_FILE"`, `"$result"`
 - Use `[[ ]]` for tests
-- Suppress stderr with `2>/dev/null` when capturing dialog output
+- `--json` output is on stdout; use `2>/dev/null` only when quieter stderr is intentional
 - Use `|| exit 0` for skip/cancel flows and `|| true` for the final non-fatal step
-- For background dialogs, capture `DIALOG_PID=$!` and finish with `wait $DIALOG_PID 2>/dev/null || true`
-- For command-file flows, use `CMD_FILE="/var/tmp/dialog.log"`, `rm -f "$CMD_FILE"` before use, and clean up after
+- For background dialogs, capture `DIALOG_PID=$!` so the script can `wait` on the launched dialog command; do not teach `dialogcli --pid` as a general-purpose user pattern
+- For command-file flows, use `CMD_FILE=$(mktemp -t dialog.XXXXXX)`, `trap cleanup EXIT`, and clean up after
+- Treat `--width` and `--height` as static dimensions; size them for the actual message, lists, checkboxes, and images being shown
 
 When writing code, cite the closest demo pattern by number and feature, then adapt it. Do not invent abstractions when a readable demo pattern already exists in this repo.
 

@@ -61,7 +61,7 @@ Keep the bundled AI skill packs aligned with the repo's actual demo patterns.
 ### Dialog invocations
 
 - Keep dialog arguments one flag per line with trailing `\`.
-- Suppress stderr when capturing output: `result=$("$DIALOG" ... 2>/dev/null)`.
+- `--json` writes structured output to stdout; add `2>/dev/null` only when you intentionally want quieter stderr.
 - Chain with error handling: `|| exit 0` (skip) or `|| true` (final step).
 - When capturing JSON output, often follow with: `echo "$result" | jq '.'`.
 
@@ -83,14 +83,21 @@ Keep the bundled AI skill packs aligned with the repo's actual demo patterns.
 
 - Launch dialog in background: `"$DIALOG" ... &`.
 - Capture PID immediately after: `DIALOG_PID=$!`.
+- Use `DIALOG_PID` to `wait` on the launched dialog command; this is separate from the internal `dialogcli --pid` flag.
 - Wait safely at end: `wait $DIALOG_PID 2>/dev/null || true`.
 - Used in demos `06`, `10`, `12`, `14`.
 
 ### Command files
 
-- Command-file demos use `CMD_FILE="/var/tmp/dialog.log"` and clean up with `rm -f` (for example demos `06`, `10`, `12`, `14`).
-- Always remove command file before use: `rm -f "$CMD_FILE"`.
+- Command-file demos create a per-run temp file with `CMD_FILE=$(mktemp -t dialog.XXXXXX)` (for example demos `06`, `10`, `12`, `14`).
+- Clean up with `rm -f "$CMD_FILE"` via a `cleanup` function and `trap cleanup EXIT`.
 - Write updates with `echo "key: value" >> "$CMD_FILE"`.
+
+### Window sizing
+
+- `--width` and `--height` are static values, not auto-fit hints.
+- Size windows for the actual content being shown, especially long messages, checkbox groups, list items, images, and infoboxes.
+- Use `demos/11_window_options.zsh` as the starting reference, then adjust after testing real content.
 
 ### Cleanup
 

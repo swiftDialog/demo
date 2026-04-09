@@ -51,7 +51,8 @@ The skill assumes the same conventions used by the demos in this repo, including
 - `DIALOG="/usr/local/bin/dialog"`
 - quoted variable expansions
 - `[[ ]]` conditionals
-- `2>/dev/null` when capturing dialog output
-- command-file cleanup and safe `wait $DIALOG_PID 2>/dev/null || true` handling
+- optional `2>/dev/null` when quieter stderr is intentional during capture
+- `mktemp`-based command-file cleanup and safe `wait $DIALOG_PID 2>/dev/null || true` handling
+- deliberate window sizing because `--width` and `--height` are static
 
 If you want the generated script to follow a specific demo, point Codex at that demo explicitly.

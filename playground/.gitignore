@@ -8,7 +8,6 @@
 
 # Ignore logs and temporary files
 *.log
-/var/tmp/dialog.log
 
 # Ignore macOS system files
 .DS_Store

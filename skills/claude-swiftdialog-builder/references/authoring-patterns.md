@@ -142,7 +142,7 @@ echo "$result" | jq '.'
 ## Variable Handling
 
 - Quote all variable expansions: `"$DIALOG"`, `"$CMD_FILE"`, `"$result"`
-- Use UPPER_CASE for constants and script-wide variables
+- Use UPPER_CASE for constant-style top-level identifiers such as `DIALOG`, `CMD_FILE`, and `DIALOG_PID`
 - Do not use `local` at script level (only meaningful inside functions)
 
 ## Conditional Tests

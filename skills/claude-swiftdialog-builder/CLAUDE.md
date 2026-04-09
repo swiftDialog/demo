@@ -31,7 +31,7 @@ See [references/builder-first.md](references/builder-first.md) for the full onbo
 
 ## Intake Workflow
 
-Use the following as a reasoning checklist before writing code. **Do not ask the user clarifying questions** — fill gaps with the smallest safe assumption, state it in one line, and proceed immediately.
+Use the following as a reasoning checklist before writing code. Default to filling gaps with the smallest safe assumption, state it in one line, and proceed immediately.
 
 1. **What**: What is the script trying to accomplish?
 2. **Who/When**: Who is the script for, and when does it run?
@@ -40,7 +40,7 @@ Use the following as a reasoning checklist before writing code. **Do not ask the
 5. **Continuity**: Does work continue after the first dialog? Does it need progress indicators, status updates, or blocking UI?
 6. **Outcomes**: What should success, failure, skip, or cancel do?
 
-For straightforward requests (a single dialog, an acknowledgment gate, a confirmation prompt), proceed directly — no clarification needed. Only ask the user a question if a gap would materially change the tier or cause the wrong output to be generated.
+For straightforward requests (a single dialog, an acknowledgment gate, a confirmation prompt), proceed directly — no clarification needed. Ask at most one short follow-up only when a missing detail would materially change the tier or cause the wrong output to be generated.
 
 ## Reading Reference Files
 
@@ -147,7 +147,7 @@ Match this repo's conventions unless the user explicitly asks otherwise:
 
 ### Variable Handling
 - Quote all expansions: `"$DIALOG"`, `"$CMD_FILE"`, `"$result"`
-- Use UPPER_CASE for constants and script-wide variables
+- Use UPPER_CASE for constant-style top-level identifiers such as `DIALOG`, `CMD_FILE`, and `DIALOG_PID`
 
 ### Conditionals and Tests
 - Use `[[ ]]` for conditional tests, not `[ ]`

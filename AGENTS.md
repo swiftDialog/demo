@@ -47,7 +47,7 @@ Keep the bundled AI skill packs aligned with the repo's actual demo patterns.
 
 ### Variables
 
-- Use UPPER_CASE for constants and script-wide variables.
+- Use UPPER_CASE for constant-style top-level identifiers such as `DIALOG`, `CMD_FILE`, and `DIALOG_PID`.
 - Always quote variable expansions: `"$DIALOG"`, `"$CMD_FILE"`, `"$result"`.
 - Common variable names: `DIALOG`, `CMD_FILE`, `DIALOG_PID`, `result`.
 - Do not use `local` at script level — it is only meaningful inside functions.

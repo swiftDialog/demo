@@ -44,6 +44,17 @@ Both skills follow the same repo conventions and produce identical script output
 
 These are skill packs for AI assistants, not runnable demos in the suite.
 
+## AI-Assisted Development Playground
+
+After exploring the demo suite and understanding swiftDialog's capabilities, use the [`playground/`](playground/) directory to create your own custom scripts with AI assistance. The playground includes a comprehensive step-by-step guide that shows you how to:
+
+- Work with AI assistants (Claude, Copilot) using the bundled skills
+- Choose the right tier for your workflow (basic dialogs → forms → progress updates → inspect mode)
+- Follow detailed real-world scenarios with exact prompts and expected AI interactions
+- Build production-ready scripts for Mac Admin tasks (onboarding, compliance, deployment, monitoring)
+
+**Start here:** [`playground/README.md`](playground/README.md) — Your workspace for AI-assisted swiftDialog script development.
+
 ## Demo Index
 
 | # | Script | Features Demonstrated |

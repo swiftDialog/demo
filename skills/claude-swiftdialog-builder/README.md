@@ -33,7 +33,7 @@ Use this when you want Claude to:
 
 Add this skill pack as project knowledge in Claude:
 
-1. Upload the entire `claude-swiftdialog-builder/` folder to your Claude project
+1. Upload the entire `claude-swiftdialog-builder/` folder to your [Claude project](https://support.anthropic.com/en/articles/9517075-what-are-projects)
 2. Reference it naturally in prompts: "Using the swiftDialog builder skill, create a form that collects user details."
 
 ### Option 2: Direct Reference

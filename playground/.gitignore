@@ -1,0 +1,17 @@
+# playground/.gitignore
+# This directory is for local experimentation.
+# Your custom scripts are ignored to prevent accidental commits.
+
+# Ignore all shell scripts (you create these here)
+*.zsh
+*.sh
+
+# Ignore logs and temporary files
+*.log
+/var/tmp/dialog.log
+
+# Ignore macOS system files
+.DS_Store
+
+# Keep this README
+!README.md

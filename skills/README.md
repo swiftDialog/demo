@@ -68,6 +68,17 @@ Review CLAUDE.md in skills/claude-swiftdialog-builder/, then create a dialog for
 
 Both skill packs are self-contained and can be adapted to other AI platforms. Review the `README.md` and main instruction file in each skill directory for usage guidance specific to that skill.
 
+### Hands-On Practice
+
+For a guided, step-by-step introduction to using these skills with AI assistants, see the [`playground/`](../playground/) directory. The playground includes:
+
+- Detailed workflow walkthroughs showing exact prompts and expected AI interactions
+- 5 realistic Mac Admin scenarios (onboarding forms, compliance prompts, app deployment, policy acknowledgment, inspect mode)
+- Tips for effective AI collaboration and troubleshooting common issues
+- Quick reference cards for tier selection and common patterns
+
+**Start here:** [`playground/README.md`](../playground/README.md)
+
 ## Choosing a Skill Pack
 
 - **Use `codex-swiftdialog-builder`** if working with GitHub Copilot or OpenAI Codex

@@ -21,18 +21,19 @@ Reference demos:
 Typical workflow:
 
 1. Create a per-dialog temp file
-2. If the script runs as root but swiftDialog runs for the logged-in GUI user, prefer `/var/tmp` and hand the command file off with `chown`/`chmod`
-3. Set `trap cleanup EXIT` so the file is always removed
-4. Launch dialog in background: `"$DIALOG" ... --commandfile "$CMD_FILE" &`
-5. Capture PID: `DIALOG_PID=$!` so the script can `wait` on the launched dialog command
-6. Sleep briefly to ensure dialog is ready: `sleep 1`
-7. Write updates: `echo "progress: 1" >> "$CMD_FILE"`
-8. Wait for completion: `wait $DIALOG_PID 2>/dev/null || true`
-9. Clean up: `rm -f "$CMD_FILE"` (or let the trap handle it)
+2. In user-run scripts, prefer `CMD_FILE=$(mktemp -t dialog.XXXXXX)`
+3. If the script runs as root but swiftDialog runs for the logged-in GUI user, prefer `/var/tmp` and hand the command file off with `chown`/`chmod`
+4. Set `trap cleanup EXIT` so the file is always removed
+5. Launch dialog in background: `"$DIALOG" ... --commandfile "$CMD_FILE" &`
+6. Capture PID: `DIALOG_PID=$!` so the script can `wait` on the launched dialog command
+7. Sleep briefly to ensure dialog is ready: `sleep 1`
+8. Write updates: `echo "progress: 1" >> "$CMD_FILE"`
+9. Wait for completion: `wait $DIALOG_PID 2>/dev/null || true`
+10. Clean up: `rm -f "$CMD_FILE"` (or let the trap handle it)
 
 If you set `--width` or `--height`, size them for the real content because those dimensions are static.
 
-Example:
+Jamf/root-run example:
 
 ```zsh
 DIALOG="/usr/local/bin/dialog"

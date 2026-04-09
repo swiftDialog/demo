@@ -1,5 +1,5 @@
 #!/bin/zsh
-# Starter: Progress and live status dialog
+# Starter: Progress and live status dialog (Jamf/root-run workflow)
 
 DIALOG="/usr/local/bin/dialog"
 LOGGED_IN_USER=""
@@ -38,8 +38,17 @@ prepare_file_for_dialog_user() {
 }
 
 # --- Launch dialog ---
+if [[ "$EUID" -ne 0 ]]; then
+    echo "Error: This starter assumes the script is launched as root. For user-run workflows, use CMD_FILE=\$(mktemp -t dialog.XXXXXX) instead." >&2
+    exit 1
+fi
+
 CMD_FILE=$(mktemp "/var/tmp/dialog.XXXXXX")
-prepare_file_for_dialog_user "$CMD_FILE" || exit 1
+if ! prepare_file_for_dialog_user "$CMD_FILE"; then
+    echo "Error: Unable to hand the command file to the logged-in user. Confirm that a console user is present before launching swiftDialog." >&2
+    exit 1
+fi
+
 # Adjust these static dimensions to fit your real message and list items.
 
 "$DIALOG" \

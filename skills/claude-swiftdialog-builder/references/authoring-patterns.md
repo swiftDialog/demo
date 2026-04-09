@@ -56,6 +56,7 @@ echo "$result" | jq '.'
 ## Background Dialogs and Command Files
 
 - Create a per-dialog temp file
+- In user-run scripts, prefer `CMD_FILE=$(mktemp -t dialog.XXXXXX)`
 - If the script runs as root but swiftDialog runs for the logged-in GUI user, prefer `/var/tmp` over the root user's private temp directory and hand the file off with `chown`/`chmod`
 - Use a `cleanup` function plus `trap cleanup EXIT` to remove it automatically
 - Launch the dialog in the background: `"$DIALOG" ... &`
@@ -65,7 +66,38 @@ echo "$result" | jq '.'
 - Finish with `wait $DIALOG_PID 2>/dev/null || true`
 - Remove temporary files after the workflow completes
 
-**Example structure:**
+**User-run example structure:**
+
+```zsh
+DIALOG="/usr/local/bin/dialog"
+CMD_FILE=""
+
+cleanup() {
+    if [[ -n "$CMD_FILE" ]]; then
+        rm -f "$CMD_FILE"
+    fi
+}
+trap cleanup EXIT
+
+CMD_FILE=$(mktemp -t dialog.XXXXXX)
+
+"$DIALOG" \
+    --title "Installing" \
+    --progress 3 \
+    --commandfile "$CMD_FILE" \
+    --button1text "Please wait..." \
+    --button1disabled &
+
+DIALOG_PID=$!
+sleep 1
+
+echo "progress: 1" >> "$CMD_FILE"
+echo "progresstext: Step 1/3" >> "$CMD_FILE"
+
+wait $DIALOG_PID 2>/dev/null || true
+```
+
+**Jamf/root-run example structure:**
 
 ```zsh
 DIALOG="/usr/local/bin/dialog"

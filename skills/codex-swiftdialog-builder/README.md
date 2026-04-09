@@ -52,7 +52,8 @@ The skill assumes the same conventions used by the demos in this repo, including
 - quoted variable expansions
 - `[[ ]]` conditionals
 - optional `2>/dev/null` when quieter stderr is intentional during capture
-- `/var/tmp` command-file handling with logged-in-user ownership handoff for root-run workflows, plus safe `wait $DIALOG_PID 2>/dev/null || true`
+- `CMD_FILE=$(mktemp -t dialog.XXXXXX)` for normal user-run command-file flows
+- Jamf/root-run `/var/tmp` command-file handling with logged-in-user ownership handoff when the script is launched as `root`, plus safe `wait $DIALOG_PID 2>/dev/null || true`
 - deliberate window sizing because `--width` and `--height` are static
 
 If you want the generated script to follow a specific demo, point Codex at that demo explicitly.

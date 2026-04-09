@@ -493,6 +493,7 @@ Loading for reference:
 The generated script will include:
 
 - `CMD_FILE=$(mktemp -t dialog.XXXXXX)` for live updates
+- For Jamf/root-run workflows that launch the script as `root`, use `/var/tmp` plus logged-in-user ownership handoff instead of the root user's private temp directory
 - `trap cleanup EXIT` plus `rm -f "$CMD_FILE"` for cleanup
 - Background dialog launch: `"$DIALOG" ... &`
 - Process ID capture: `DIALOG_PID=$!`

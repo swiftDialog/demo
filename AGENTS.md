@@ -15,11 +15,11 @@ Keep the bundled AI skill packs aligned with the repo's actual demo patterns.
 - AI skills: `skills/codex-swiftdialog-builder/` and `skills/claude-swiftdialog-builder/`
 - Skills index: `skills/README.md`
 - Public index: `README.md`
-- Local guidance: `AGENTS.md` (ignored in `.gitignore`)
+- Repo guidance: `AGENTS.md`
 
 ## Working Agreements
 
-- Before finishing, prompt the user to run `zsh -n` against any changed `.zsh` files. This includes `demos/NN_*.zsh` and any starter templates under `skills/**/templates/`.
+- Before finishing, prompt the user to run `zsh -n` against any changed `.zsh` files. This includes `demos/NN_*.zsh` and any starter templates under `skills/**/templates/` and `skills/**/assets/templates/`.
 - Do not attempt this syntax check via the Bash tool — sandbox restrictions may interrupt it.
 - Ask for confirmation before adding any new dependency.
 - Never make edits while checked out on `main`.
@@ -38,7 +38,7 @@ Keep the bundled AI skill packs aligned with the repo's actual demo patterns.
 - Demo files use two-digit zero-padded numbering: `01`, `02`, ... `19`.
 - Define `DIALOG="/usr/local/bin/dialog"` near the top.
 - Only `run_demos.zsh` uses `set -euo pipefail`; demo scripts do not.
-- Starter templates under `skills/` should also use `#!/bin/zsh` and keep the same shell conventions unless the target AI platform requires a different file layout.
+- Starter templates under `skills/` should also use `#!/bin/zsh` and keep the same shell conventions unless the target AI platform requires a different file layout. This applies to both `templates/` and `assets/templates/`.
 
 ### Comments
 
@@ -128,4 +128,4 @@ Keep the bundled AI skill packs aligned with the repo's actual demo patterns.
 
 ## Local Tracking
 
-This file is local agent guidance and may remain ignored by version control.
+This file is repo guidance and is version-controlled alongside the demos and skill packs.

@@ -82,12 +82,13 @@ The skills organize swiftDialog workflows into four tiers, from simplest to most
 
 When you ask an AI assistant to create a swiftDialog script using the skills, it will:
 
-1. **Ask intake questions** to understand your requirements
-2. **Select the appropriate tier** based on your answers
-3. **Load relevant demo patterns** for reference
-4. **Generate a production-ready script** following repo conventions
+1. **Infer the smallest safe assumptions** from your prompt
+2. **Ask a short follow-up only if a missing detail would materially change the tier or output**
+3. **Select the appropriate tier** based on the request
+4. **Load relevant demo patterns** for reference
+5. **Generate a production-ready script** following repo conventions
 
-> **The AI won't just guess,** it will interview you to ensure the script matches your needs.
+> **The AI won't interrogate you by default.** If your prompt is already specific enough, it should proceed directly and note any assumptions briefly.
 
 ---
 
@@ -124,7 +125,7 @@ installation status for multiple applications.
 
 ### 3.2 The Intake Process
 
-The AI will ask you questions before generating code. Here are the typical intake questions and what they mean:
+The AI may ask a short follow-up before generating code, but only when a missing detail would materially change the tier or output. Here are the typical questions it may use when needed:
 
 #### Question 1: "What is the script trying to accomplish?"
 
@@ -230,7 +231,7 @@ Using the swiftDialog builder skill, create a script that collects
 employee information during Mac onboarding.
 ```
 
-**AI's intake questions:**
+**Possible AI follow-up questions (if the prompt leaves material gaps):**
 ```
 1. What specific information needs to be collected?
 2. Are any fields required or need validation?
@@ -303,7 +304,7 @@ department selection. Name and email are required and must be validated.
 The output should be JSON for processing by a Jamf policy.
 ```
 
-#### Step 2: Expected AI Intake Questions (if any)
+#### Step 2: Possible AI Follow-Up Questions (if needed)
 
 The prompt is specific enough that the AI may proceed directly, but might ask:
 
@@ -378,7 +379,7 @@ with two buttons: "Open Software Update" and "I'll Update Later". The dialog
 should use caution styling to emphasize urgency.
 ```
 
-#### Step 2: Expected AI Intake Questions
+#### Step 2: Possible AI Follow-Up Questions (if needed)
 
 ```
 1. Should "Open Software Update" launch System Settings directly?
@@ -452,7 +453,7 @@ install happens in the background. Include a progress bar that increments
 with each completed app.
 ```
 
-#### Step 2: Expected AI Intake Questions
+#### Step 2: Possible AI Follow-Up Questions (if needed)
 
 ```
 1. Should the dialog block until all installations complete?
@@ -499,9 +500,9 @@ The generated script will include:
 - Progress tracking in increments (25% per app)
 - Command file updates:
   ```zsh
-  echo "listitem: Rosetta 2: wait" >> "$CMD_FILE"
+  echo "listitem: title: Rosetta 2, status: wait, statustext: Installing..." >> "$CMD_FILE"
   # install Rosetta 2 ...
-  echo "listitem: Rosetta 2: success" >> "$CMD_FILE"
+  echo "listitem: title: Rosetta 2, status: success, statustext: Installed" >> "$CMD_FILE"
   echo "progress: increment 25" >> "$CMD_FILE"
   ```
 - Wait for dialog completion: `wait $DIALOG_PID 2>/dev/null || true`
@@ -534,7 +535,7 @@ with "I Acknowledge" and "Decline" buttons. Button 1 should be disabled
 until the user scrolls to the bottom of the policy text.
 ```
 
-#### Step 2: Expected AI Intake Questions
+#### Step 2: Possible AI Follow-Up Questions (if needed)
 
 ```
 1. How should the policy text be loaded? From a file, or embedded in the script?
@@ -613,7 +614,7 @@ initially, then automatically change to success when detected on disk.
 The Continue button should be disabled until all three apps are installed.
 ```
 
-#### Step 2: Expected AI Intake Questions
+#### Step 2: Possible AI Follow-Up Questions (if needed)
 
 ```
 1. How often should the script check for app presence?

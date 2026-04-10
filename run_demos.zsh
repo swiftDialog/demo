@@ -91,6 +91,7 @@ show_selector() {
         --checkbox "17. Full Screen & Blur" \
         --checkbox "18. View Order & Misc Features" \
         --checkbox "19. Inspect Mode (config presets - log monitor - item auto-complete)" \
+        --checkboxstyle switch \
         --button1text "▶ Start Demos" \
         --button2text "Back" \
         --infotext "Tip: check all for the full tour" \

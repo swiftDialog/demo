@@ -69,15 +69,15 @@ sleep 2
 echo "progress: 4" >> "$CMD_FILE"
 echo "progresstext: Appending to message..." >> "$CMD_FILE"
 echo "infotext: Step 4 of 19" >> "$CMD_FILE"
-echo "message: + \n\n_This line was appended using the \`+\` prefix._" >> "$CMD_FILE"
+echo "message: + _This line was appended using the \`+\` prefix._" >> "$CMD_FILE"
 sleep 2
 
 # Step 5: Change message alignment
-echo "progress: 5" >> "$CMD_FILE"
-echo "progresstext: Centering message..." >> "$CMD_FILE"
-echo "infotext: Step 5 of 19" >> "$CMD_FILE"
-echo "alignment: center" >> "$CMD_FILE"
-sleep 2
+#echo "progress: 5" >> "$CMD_FILE"
+#echo "progresstext: Centering message..." >> "$CMD_FILE"
+#echo "infotext: Step 5 of 19" >> "$CMD_FILE"
+#echo "alignment: center" >> "$CMD_FILE"
+#sleep 2
 
 # Step 6: Change icon
 echo "progress: 6" >> "$CMD_FILE"

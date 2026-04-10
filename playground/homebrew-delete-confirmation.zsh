@@ -1,5 +1,5 @@
 #!/bin/zsh
-# Internal: Homebrew Uninstall Confirmation
+# Internal: Homebrew Uninstall Confirmation (Jamf/root-run)
 
 DIALOG="/usr/local/bin/dialog"
 UNINSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh"
@@ -7,7 +7,7 @@ EXPECTED_SHA256="58e8ea576b9f9682c4740c0e4c286dfea8d15271f33d8504006132a634f25b0
 HOMEBREW_DIRECTORY="/opt/homebrew"
 BREW=""
 LOGGED_IN_USER=""
-fontSize="14"
+FONT_SIZE="14"
 CMD_FILE=""
 TEMP_SCRIPT=""
 LOG_FILE=""
@@ -23,6 +23,12 @@ cleanup() {
     fi
 }
 trap cleanup EXIT
+
+# --- Guard: this workflow is intended for Jamf/root-run execution ---
+if [[ "$EUID" -ne 0 ]]; then
+    echo "Error: This script is intended to be launched as root so swiftDialog updates can be handed off to the logged-in GUI user." >&2
+    exit 1
+fi
 
 send_command() {
     printf '%s\n' "$1" >> "$CMD_FILE"
@@ -206,7 +212,7 @@ finish_with_error() {
 
     "$DIALOG" \
         --title "Homebrew Uninstall Failed" \
-        --messagefont "size=${fontSize}" \
+        --messagefont "size=${FONT_SIZE}" \
         --message "$dialog_message" \
         --icon "SF=xmark.octagon.fill,colour=#FF3B30" \
         --overlayicon "https://usw2.ics.services.jamfcloud.com/icon/hash_9edff3eb98482a1aaf17f8560488f7b500cc7dc64955b8a9027b3801cab0fd82" \
@@ -229,7 +235,7 @@ BREW=$(detect_homebrew_binary)
 if [[ -z "$BREW" ]]; then
     "$DIALOG" \
         --title "Homebrew Not Installed" \
-        --messagefont "size=${fontSize}" \
+        --messagefont "size=${FONT_SIZE}" \
         --message "#### Homebrew is not installed on this Mac.\n\nNo changes were made.\n\nPlease click **OK**." \
         --icon "https://usw2.ics.services.jamfcloud.com/icon/hash_34e1725356c642ed6a3a5586eafc02af65fe193712a9f12294242dcf7d3a4353" \
         --button1text "OK" \
@@ -278,7 +284,7 @@ EOF
 # --- Explicit destructive-action acknowledgment ---
 result=$("$DIALOG" \
     --title "Remove Homebrew from this Mac?" \
-    --messagefont "size=${fontSize}" \
+    --messagefont "size=${FONT_SIZE}" \
     --message "$WARNING_MESSAGE" \
     --icon "SF=exclamationmark.triangle, weight=bold, colour1=red" \
     --overlayicon "https://usw2.ics.services.jamfcloud.com/icon/hash_9edff3eb98482a1aaf17f8560488f7b500cc7dc64955b8a9027b3801cab0fd82" \
@@ -291,7 +297,7 @@ result=$("$DIALOG" \
     --height 760 \
     --json 2>/dev/null) || exit 0
 
-# --- Progress and status dialog ---
+# --- Progress and status dialog (root-run with GUI command-file handoff) ---
 CMD_FILE=$(mktemp "/var/tmp/dialog.XXXXXX")
 TEMP_SCRIPT=$(mktemp "/var/tmp/brew-uninstall.XXXXXX")
 
@@ -307,7 +313,7 @@ fi
 
 "$DIALOG" \
     --title "Removing Homebrew" \
-    --messagefont "size=${fontSize}" \
+    --messagefont "size=${FONT_SIZE}" \
     --message "The official Homebrew uninstall workflow is running. After it completes, this script will also delete \`$HOMEBREW_DIRECTORY\` if it remains. Do not close Terminal, log out, or shut down this Mac until the process finishes." \
     --icon "SF=trash.slash.fill,colour=#FF6B35" \
     --overlayicon "https://usw2.ics.services.jamfcloud.com/icon/hash_9edff3eb98482a1aaf17f8560488f7b500cc7dc64955b8a9027b3801cab0fd82" \
@@ -423,7 +429,7 @@ wait $DIALOG_PID 2>/dev/null || true
 
 "$DIALOG" \
     --title "Homebrew Removed" \
-    --messagefont "size=${fontSize}" \
+    --messagefont "size=${FONT_SIZE}" \
     --message "Homebrew uninstall completed, and \`$HOMEBREW_DIRECTORY\` was removed.\n\nA log was written to:\n\n\`$LOG_FILE\`" \
     --icon "SF=checkmark.circle.fill,weight=bold,colour1=#63CA56,colour2=#2D7D2B" \
     --overlayicon "https://usw2.ics.services.jamfcloud.com/icon/hash_9edff3eb98482a1aaf17f8560488f7b500cc7dc64955b8a9027b3801cab0fd82" \
@@ -435,6 +441,6 @@ reveal_log_file
 
 # Notes:
 # - Tier 1 acknowledgment pattern adapted from the checkbox-gated button guidance in SKILL.md and authoring-patterns.md.
-# - Tier 3 progress and list-item status updates adapted from demos 06_progress_timer.zsh and 10_list_items.zsh.
+# - Tier 3 progress and list-item status updates use the Jamf/root-run command-file handoff pattern described in the skill references, alongside demos 06_progress_timer.zsh and 10_list_items.zsh.
 # - Assumes package counts are moderate enough for a fixed-size warning dialog and keeps uninstall output in a temp log rather than streaming it live.
 # - The downloaded Homebrew uninstaller is invoked with /bin/bash because the official script requires Bash.

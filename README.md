@@ -14,13 +14,48 @@ A collection of zsh scripts that demonstrate every major feature of [swiftDialog
 git clone https://github.com/swiftDialog/demo.git swiftDialog-demo
 
 # or download the zip
-curl -sL "https://github.com/swiftDialog/demo/archive/refs/heads/main.zip" -o swiftDialog-demo.zip && unzip swiftDialog-demo.zip -d swiftDialog-demo 
+curl -sL "https://github.com/swiftDialog/demo/archive/refs/heads/main.zip" -o swiftDialog-demo.zip && unzip swiftDialog-demo.zip -d swiftDialog-demo
 
 cd swiftDialog-demo
 ./run_demos.zsh
 ```
 
 The main controller uses swiftDialog itself — pick demos with checkboxes, then step through each one.
+
+## AI Skills for swiftDialog Authoring
+
+**New to swiftDialog?** Start with the official [swiftDialog Builder page](https://swiftdialog.app/builder/builder/) for orientation and visual prototyping, then use one of the repo-contained skill packs to turn that understanding into repo-style shell scripts. Builder is useful, but it is not comprehensive and it does not replace final sizing, cleanup, and workflow decisions.
+
+### Available Skills
+
+**[`codex-swiftdialog-builder`](skills/codex-swiftdialog-builder/)** — For GitHub Copilot / OpenAI Codex
+
+- [`SKILL.md`](skills/codex-swiftdialog-builder/SKILL.md) — Codex workflow and tier selection
+- [`references/`](skills/codex-swiftdialog-builder/references/) — Demo mapping and authoring guidance
+- [`assets/templates/`](skills/codex-swiftdialog-builder/assets/templates/) — Starter shell scripts
+- Includes a Jamf/root-run `/var/tmp` plus ownership-handoff pattern for command-file workflows launched as `root`
+
+**[`claude-swiftdialog-builder`](skills/claude-swiftdialog-builder/)** — For Claude Sonnet
+
+- [`CLAUDE.md`](skills/claude-swiftdialog-builder/CLAUDE.md) — Claude workflow and tier selection
+- [`references/`](skills/claude-swiftdialog-builder/references/) — Demo mapping and authoring guidance
+- [`templates/`](skills/claude-swiftdialog-builder/templates/) — Starter shell scripts
+- Includes a Jamf/root-run `/var/tmp` plus ownership-handoff pattern for command-file workflows launched as `root`
+
+Both skills follow the same repo conventions and produce identical script output — choose the one that matches your AI platform. See [`skills/README.md`](skills/README.md) for detailed usage instructions.
+
+These are skill packs for AI assistants, not runnable demos in the suite.
+
+## AI-Assisted Development Playground
+
+After exploring the demo suite and understanding swiftDialog's capabilities, use the [`playground/`](playground/) directory to create your own custom scripts with AI assistance. The playground includes a comprehensive step-by-step guide that shows you how to:
+
+- Work with AI assistants (Claude, Copilot) using the bundled skills
+- Choose the right tier for your workflow (basic dialogs → forms → progress updates → inspect mode)
+- Follow detailed real-world scenarios with exact prompts and expected AI interactions
+- Build production-ready scripts for Mac Admin tasks (onboarding, compliance, deployment, monitoring)
+
+**Start here:** [`playground/README.md`](playground/README.md) — Your workspace for AI-assisted swiftDialog script development.
 
 ## Demo Index
 

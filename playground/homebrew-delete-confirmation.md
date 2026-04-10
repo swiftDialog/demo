@@ -1,6 +1,8 @@
-# Internal Homebrew Uninstall Script – swiftDialog Prompt for codex-swiftdialog-builder
+# Internal Homebrew Uninstall Script – Jamf/Root-Run swiftDialog Prompt for codex-swiftdialog-builder
 
 **Review** `skills/codex-swiftdialog-builder/SKILL.md` (including its intake checklist, tier definitions, and references to authoring-patterns.md) and use it to create a self-contained, internal-use Zsh shell script for our team.
+
+This script is a **Jamf/root-run workflow**: the script itself is launched as `root`, while swiftDialog is presented to the logged-in GUI user.
 
 ## Goal
 Create a script that **safely uninstalls Homebrew** with clear user consent and security verification.
@@ -16,6 +18,11 @@ The script must follow this exact workflow:
 5. Show appropriate status or progress feedback while the uninstall is running.
 6. Handle user cancellation gracefully at any step.
 
+For the progress/status portion, use the repo's **Jamf/root-run command-file handoff pattern**:
+- The script runs as `root`.
+- The command file lives in `/var/tmp`.
+- The command file is handed off to the logged-in GUI user so swiftDialog can read live updates.
+
 ## Security Requirement (Critical – Fail Closed)
 - Download from: `https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh`
 - Save to a temporary file (use `mktemp`).
@@ -29,6 +36,7 @@ The script must follow this exact workflow:
 - Use warning/red-orange accent colors and appropriate icons (e.g., shield or alert) for the acknowledgment dialog.
 - Dynamically insert the list of installed packages into the message.
 - After acknowledgment, display a progress/status dialog during the uninstall (Tier 3 behavior using command file updates if needed for live feedback).
+- The progress/status dialog must be shown to the logged-in GUI user even though the script is launched as `root`.
 - Treat this as a strict **internal team workflow tool** — professional, no-frills, no public-demo styling.
 
 ## Reference Acknowledgment Pattern
@@ -69,7 +77,7 @@ fi
   - Use `[[ ]]` for tests
   - `|| exit 0` for graceful cancel
   - Self-contained script (no external helpers)
-  - Use `mktemp` + `trap` cleanup for any command files (Tier 3)
+  - Use the Jamf/root-run `/var/tmp` + ownership-handoff command-file pattern for Tier 3 progress updates
 - Choose the **smallest viable tier** that fully satisfies the requirements.
 - Output **one complete, ready-to-use script**.
 - At the bottom of the script (as comments), include brief notes explaining:

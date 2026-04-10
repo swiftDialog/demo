@@ -2,10 +2,7 @@
 # Starter: Progress and live status dialog (Jamf/root-run workflow)
 
 DIALOG="/usr/local/bin/dialog"
-<<<<<<< HEAD
 LOGGED_IN_USER=""
-=======
->>>>>>> origin/main
 CMD_FILE=""
 
 cleanup() {
@@ -41,7 +38,6 @@ prepare_file_for_dialog_user() {
 }
 
 # --- Launch dialog ---
-<<<<<<< HEAD
 if [[ "$EUID" -ne 0 ]]; then
     echo "Error: This starter assumes the script is launched as root. For user-run workflows, use CMD_FILE=\$(mktemp -t dialog.XXXXXX) instead." >&2
     exit 1
@@ -53,9 +49,6 @@ if ! prepare_file_for_dialog_user "$CMD_FILE"; then
     exit 1
 fi
 
-=======
-CMD_FILE=$(mktemp -t dialog.XXXXXX)
->>>>>>> origin/main
 # Adjust these static dimensions to fit your real message and list items.
 
 "$DIALOG" \

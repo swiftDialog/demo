@@ -223,9 +223,8 @@ echo "$pretty_result"
 
 "$DIALOG" \
     --title "Branched Workflow Output" \
-    --message "The workflow finished with the accumulated JSON below.\n\nUse this output to verify which path you took through the **workflow** array." \
+    --message "The workflow finished with the accumulated JSON below.\n\nUse this output to verify which path you took through the **workflow** array.\n\n\`\`\`json\n$pretty_result\n\`\`\`" \
     --icon "SF=doc.text.magnifyingglass,colour=#34C759" \
-    --infobox "$pretty_result" \
     --button1text "Done" \
     --moveable \
     --width 760 \

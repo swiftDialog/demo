@@ -1,0 +1,79 @@
+{
+  "preset": "5",
+  "title": "Managed Preference Cadence Sample",
+  "highlightColor": "#732D3C",
+  "accentBorderColor": "#FF9500",
+  "showAccentBorder": true,
+  "appearance": "dark",
+  "footerText": "Sample only: managedpref + ManagedValueRef",
+  "footerBackgroundColor": "#111827",
+  "footerTextColor": "#F9FAFB",
+  "copyrightText": "Footer-branding sample for managed preference driven inspect mode",
+  "supportText": "Uses a real on-disk icon so footer branding resolves cleanly",
+  "logoConfig": {
+    "imagePath": "/System/Applications/Utilities/Console.app/Contents/Resources/AppIcon.icns",
+    "imagePathDark": "/System/Applications/Utilities/Console.app/Contents/Resources/AppIcon.icns",
+    "position": "bottomleft",
+    "maxHeight": 26,
+    "opacity": 0.95,
+    "showOnIntro": true,
+    "showOnMain": true,
+    "showOnSummary": true
+  },
+  "introSteps": [
+    {
+      "id": "managedpref-inline",
+      "stepType": "cadence",
+      "title": "Inline managedpref gating",
+      "subtitle": "Device and user scopes can gate cadence entries directly.",
+      "cadenceStyle": "carousel",
+      "cadenceInterval": 1.0,
+      "cadenceMinDwell": 0.8,
+      "cadence": [
+        {
+          "id": "device-profile",
+          "message": "Waiting for device-scoped profile key...",
+          "sfSymbol": "lock.shield.fill",
+          "attribute": {
+            "type": "managedpref",
+            "domain": "com.apple.MCX.FileVault2",
+            "key": "Enable",
+            "evaluation": "equals",
+            "expectedValue": "On",
+            "scope": "device"
+          },
+          "timeout": 600
+        },
+        {
+          "id": "user-profile",
+          "message": "Waiting for user-scoped Safari profile key...",
+          "sfSymbol": "person.crop.circle.badge.checkmark",
+          "attribute": {
+            "type": "managedpref",
+            "domain": "com.apple.Safari",
+            "key": "AutoFillFromAddressBook",
+            "evaluation": "boolean",
+            "expectedValue": "false",
+            "scope": "user"
+          },
+          "timeout": 600
+        }
+      ]
+    },
+    {
+      "id": "managedpref-ref",
+      "stepType": "cadence",
+      "title": "Managed cadence payload",
+      "subtitle": "Claims and brand color can come from separate managed domains.",
+      "cadenceRef": {
+        "domain": "com.example.tenant.deploy",
+        "key": "Claims"
+      },
+      "brandColorRef": {
+        "domain": "nl.root3.support",
+        "key": "CustomColor",
+        "darkKey": "CustomColorDarkMode"
+      }
+    }
+  ]
+}

@@ -12,7 +12,7 @@ If same correction repeats, formalize it here instead of re-prompting it.
 
 `swiftDialog_demos` is self-guided showcase of swiftDialog features plus repo-aligned AI skill packs for authoring similar scripts.
 Primary controller is `run_demos.zsh`.
-Primary artifacts are demo scripts under `demos/01_basic_styles.zsh` through `demos/19_inspect_mode.zsh`.
+Primary artifacts are demo scripts under `demos/01_basic_styles.zsh` through `demos/20_branched_workflows.zsh`.
 AI skill packs live under `skills/codex-swiftdialog-builder/` and `skills/claude-swiftdialog-builder/`.
 
 ## Key Commands
@@ -244,7 +244,7 @@ Match established repo style unless user explicitly asks otherwise.
 2. For any changed `.zsh` script or template, prompt user to run `zsh -n` on each changed file.
 3. For demo additions or behavior changes, verify repo layout references still match actual files:
    - `run_demos.zsh`
-   - `demos/01_basic_styles.zsh` through `demos/19_inspect_mode.zsh`
+   - `demos/01_basic_styles.zsh` through `demos/20_branched_workflows.zsh`
    - Demo Index in `README.md`
 4. For skill-pack changes, verify companion docs stay aligned:
    - `skills/README.md`

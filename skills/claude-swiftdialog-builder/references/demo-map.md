@@ -50,7 +50,8 @@ Use the smallest demo set that covers the request.
 ## Tier 4: Advanced Config-Driven Flows
 
 - **`16_json_input.zsh`**: dialog configuration authored in JSON (also listed in Tier 2)
-- **`19_inspect_mode.zsh`**: inspect-mode monitoring with config JSON, log monitoring, side messages, and item path completion
+- **`19_inspect_mode.zsh`**: v3.1.0b4 inspect-mode monitoring with cadence carousel, hybrid IPC, preset 3 redesign, footer branding, and published session files
+- **`20_branched_workflows.zsh`**: workflow-card routing with `branch`, `nextpage`, `finalpage`, and history-aware Previous navigation
 
 **Common use cases:**
 - Log file monitoring during installs

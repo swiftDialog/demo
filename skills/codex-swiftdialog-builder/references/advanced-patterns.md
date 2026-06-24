@@ -146,6 +146,28 @@ result=$("$DIALOG" --jsonfile "$CONFIG_JSON") || exit 0
 echo "$result" | jq '.'
 ```
 
+## When to use workflow cards
+
+Choose a workflow/cards JSON pattern when the dialog should route between pages without a callback shell script:
+
+- Different answers should jump to different pages
+- A checkbox should send the user down separate branches
+- Some routes should skip intermediate pages
+- One branch should finish early even when more pages exist
+
+Reference demo:
+
+- `20_branched_workflows.zsh` - workflow array, `branch.map`, `branch.default`, `branch.ifTrue`, `branch.ifFalse`, `nextpage`, `finalpage`
+
+Typical workflow:
+
+1. Author a `workflow` array in `--jsonfile` or `--jsonstring`
+2. Give every card a numeric `id`
+3. Use `branch.field` with `map` or `ifTrue` / `ifFalse` when routing depends on user input
+4. Use `nextpage` for a static jump
+5. Use `finalpage: true` when one branch should terminate early
+6. Return `--json` output and inspect the accumulated values
+
 ## When to use inspect mode
 
 Choose inspect mode only for workflows that benefit from a config-driven monitor:
@@ -153,12 +175,14 @@ Choose inspect mode only for workflows that benefit from a config-driven monitor
 - A log file is being tailed for state changes
 - Completion is tied to file or app path appearance
 - Side messages and monitored items are easier to express in JSON
+- Cadence should advance only when real attributes are satisfied
+- External drivers need published `resultFile`, `readinessFile`, and `eventFile` paths
 
 Inspect mode is not the default answer for ordinary install progress. Use Tier 3 first unless the workflow is clearly config-driven.
 
 Reference demo:
 
-- `19_inspect_mode.zsh` - inspect-mode configuration, log monitoring, path-based completion
+- `19_inspect_mode.zsh` - cadence carousel, hybrid IPC, preset 3 redesign, aria2 cache detection, published session discovery
 
 Typical workflow:
 
@@ -173,6 +197,13 @@ Typical workflow:
 Example use case:
 
 An install script writes to a log file as it installs multiple apps. swiftDialog monitors the log for keywords like `[appname] install complete` and updates item status automatically. When all monitored paths exist, the dialog auto-enables the close button.
+
+v3.1.0b4 extends this pattern with:
+
+- `stepType: "cadence"` for DEPNotify-style gated messaging
+- `cadenceStyle: "carousel"` for horizontal progress cards
+- `cacheExtensions` so alternate downloaders like `aria2c` can surface partial-file status
+- `--published-sessions-dir` so external helpers can discover active inspect sessions
 
 Example:
 
@@ -239,6 +270,7 @@ wait $DIALOG_PID 2>/dev/null || true
 | Static dialog, no updates | Direct invocation | 1 or 2 |
 | Live progress updates | Command file | 3 |
 | Dynamic field generation | JSON input | 2 or 4 |
+| Multi-page native routing | Workflow cards | 4 |
 | Log-driven monitoring | Inspect mode | 4 |
 | Path-based completion | Inspect mode | 4 |
 

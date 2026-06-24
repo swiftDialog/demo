@@ -75,7 +75,7 @@ Both skill packs are self-contained and can be adapted to other AI platforms. Re
 For a guided, step-by-step introduction to using these skills with AI assistants, see the [`playground/`](../playground/) directory. The playground includes:
 
 - Detailed workflow walkthroughs showing exact prompts and expected AI interactions
-- 5 realistic Mac Admin scenarios (onboarding forms, compliance prompts, app deployment, policy acknowledgment, inspect mode)
+- 6 realistic Mac Admin scenarios (onboarding forms, compliance prompts, app deployment, policy acknowledgment, inspect mode, destructive-action confirmation)
 - Tips for effective AI collaboration and troubleshooting common issues
 - Quick reference cards for tier selection and common patterns
 

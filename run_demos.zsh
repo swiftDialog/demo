@@ -16,7 +16,7 @@ set -euo pipefail
 DIALOG="/usr/local/bin/dialog"
 DEMO_DIR="$(cd "$(dirname "$0")/demos" && pwd)"
 ICON_APP="/Applications/Utilities/Terminal.app"
-DEMO_VERSION="1.0"
+DEMO_VERSION="1.1"
 
 # Colours
 BLUE="#007AFF"
@@ -90,7 +90,8 @@ show_selector() {
         --checkbox "16. JSON Input Demo" \
         --checkbox "17. Full Screen & Blur" \
         --checkbox "18. View Order & Misc Features" \
-        --checkbox "19. Inspect Mode (config presets - log monitor - item auto-complete)" \
+        --checkbox "19. Inspect Mode v3.1.0b4 (cadence - preset 3 - session publishing)" \
+        --checkbox "20. Branched Workflows (workflow cards - branch - nextpage - finalpage)" \
         --checkboxstyle switch \
         --button1text "▶ Start Demos" \
         --button2text "Back" \
@@ -98,7 +99,7 @@ show_selector() {
         --ontop \
         --moveable \
         --width 720 \
-        --height 690 \
+        --height 740 \
         --resizable \
         --json 2>/dev/null) || return $?
 
@@ -180,7 +181,8 @@ main() {
             ["16. JSON Input Demo"]="16_json_input.zsh"
             ["17. Full Screen & Blur"]="17_fullscreen_blur.zsh"
             ["18. View Order & Misc Features"]="18_misc_features.zsh"
-            ["19. Inspect Mode (config presets - log monitor - item auto-complete)"]="19_inspect_mode.zsh"
+            ["19. Inspect Mode v3.1.0b4 (cadence - preset 3 - session publishing)"]="19_inspect_mode.zsh"
+            ["20. Branched Workflows (workflow cards - branch - nextpage - finalpage)"]="20_branched_workflows.zsh"
         )
 
         # Parse JSON output to find checked items

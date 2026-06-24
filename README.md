@@ -53,7 +53,7 @@ After exploring the demo suite and understanding swiftDialog's capabilities, use
 - Work with AI assistants (Claude, Copilot) using the bundled skills
 - Choose the right tier for your workflow (basic dialogs → forms → progress updates → inspect mode)
 - Follow detailed real-world scenarios with exact prompts and expected AI interactions
-- Build production-ready scripts for Mac Admin tasks (onboarding, compliance, deployment, monitoring)
+- Build production-ready scripts for Mac Admin tasks (onboarding, compliance, deployment, monitoring, destructive-action confirmation)
 
 **Start here:** [`playground/README.md`](playground/README.md) — Your workspace for AI-assisted swiftDialog script development.
 
@@ -61,25 +61,26 @@ After exploring the demo suite and understanding swiftDialog's capabilities, use
 
 | # | Script | Features Demonstrated |
 |---|--------|---------------------|
-| 01 | `basic_styles.zsh` | `--style` (alert, caution, warning, centered), style overrides |
-| 02 | `title_message.zsh` | `--title`, `--titlefont`, `--message`, `--messagefont`, `--messagealignment`, `--messageposition`, `--bannertitle`, title "none" |
-| 03 | `icons.zsh` | `--icon` (SF Symbols, apps, builtins, QR, palette, auto colour, weight), `--iconsize`, `--iconalpha`, `--centreicon`, `--overlayicon`, `--hideicon` |
-| 04 | `buttons.zsh` | `--button1text`, `--button1symbol`, `--button1disabled`, `--button2text`, `--button2symbol`, `--infobuttontext`, `--infobuttonsymbol`, `--infobuttonaction`, `--buttonstyle` (center, stack), `--buttonsize`, `--buttontextsize`, `--hidedefaultkeyboardaction` |
-| 05 | `images_banners.zsh` | `--image`, `--imagecaption`, `--bannerimage`, `--bannertitle`, `--bannertext`, `--background`, `--bgalpha`, `--bgposition`, `--bgfill` |
-| 06 | `progress_timer.zsh` | `--progress` (absolute, increment, reset, complete), `--progresstext`, `--progresstextalignment`, `--timer`, `--hidetimerbar`, command file progress updates |
-| 07 | `text_fields.zsh` | `--textfield` (required, secure, prompt, value, regex, regexerror, confirm, fileselect, filetype, path, name), `--textfieldlivevalidation` |
-| 08 | `dropdowns.zsh` | `--selecttitle`, `--selectvalues`, `--selectdefault`, modifiers (required, radio, searchable, multiselect, name), dividers |
-| 09 | `checkboxes.zsh` | `--checkbox` (name modifier), `--checkboxstyle` (checkbox, switch, sizes) |
-| 10 | `list_items.zsh` | `--listitem` (status, statustext, custom SF symbols), `--liststyle`, `--enablelistselect`, command file (list:, listitem:, add, delete, index) |
-| 11 | `window_options.zsh` | `--width`, `--height`, `--big`, `--small`, `--position`, `--positionoffset`, `--moveable`, `--ontop`, `--resizable`, `--windowbuttons`, `--appearance`, `--showdockicon`, `--dockiconbadge` |
-| 12 | `command_file.zsh` | Full command file tour: title:, titlefont:, message: (+append), alignment:, icon:, overlayicon:, iconalpha:, button1text:, button1:, infotext:, infobox:, icon: centre/left |
-| 13 | `notifications.zsh` | `--notification`, `--subtitle`, `--identifier`, `--remove` |
-| 14 | `mini_presentation.zsh` | `--mini` (with progress), `--presentation` (with listitem, infobox, progress) |
-| 15 | `web_video.zsh` | `--webcontent`, `--video` (youtube= shortcut), `--videocaption`, `--autoplay` |
-| 16 | `json_input.zsh` | `--jsonstring`, `--jsonfile`, JSON arrays for checkboxes, selectitems, textfields, images |
-| 17 | `fullscreen_blur.zsh` | `--fullscreen`, `--blurscreen`, `--hideotherapps` |
-| 18 | `misc_features.zsh` | `--helpmessage`, `--infotext`, `--infobox`, `--vieworder`, `--quitkey`, `--sound`, `--showsoundcontrols`, `--displaylog`, `--loghistory`, `--debug`, `--eula`, `--alwaysreturninput`, auth key/checksum explanation |
-| 19 | `inspect_mode.zsh` | `--inspect-mode`, `--inspect-config`, `DIALOG_INSPECT_CONFIG`, inspect JSON (`preset`, `logMonitor`, `sideMessage`, `items`, `autoEnableButton`) |
+| 01 | `01_basic_styles.zsh` | `--style` (alert, caution, warning, centered), style overrides |
+| 02 | `02_title_message.zsh` | `--title`, `--titlefont`, `--message`, `--messagefont`, `--messagealignment`, `--messageposition`, `--bannertitle`, title "none" |
+| 03 | `03_icons.zsh` | `--icon` (SF Symbols, apps, builtins, QR, palette, auto colour, weight), `--iconsize`, `--iconalpha`, `--centreicon`, `--overlayicon`, `--hideicon` |
+| 04 | `04_buttons.zsh` | `--button1text`, `--button1symbol`, `--button1disabled`, `--button2text`, `--button2symbol`, `--infobuttontext`, `--infobuttonsymbol`, `--infobuttonaction`, `--buttonstyle` (center, stack), `--buttonsize`, `--buttontextsize`, `--hidedefaultkeyboardaction` |
+| 05 | `05_images_banners.zsh` | `--image`, `--imagecaption`, `--bannerimage`, `--bannertitle`, `--bannertext`, `--background`, `--bgalpha`, `--bgposition`, `--bgfill` |
+| 06 | `06_progress_timer.zsh` | `--progress` (absolute, increment, reset, complete), `--progresstext`, `--progresstextalignment`, `--timer`, `--hidetimerbar`, command file progress updates |
+| 07 | `07_text_fields.zsh` | `--textfield` (required, secure, prompt, value, regex, regexerror, confirm, fileselect, filetype, path, name), `--textfieldlivevalidation` |
+| 08 | `08_dropdowns.zsh` | `--selecttitle`, `--selectvalues`, `--selectdefault`, modifiers (required, radio, searchable, multiselect, name), dividers |
+| 09 | `09_checkboxes.zsh` | `--checkbox` (name modifier), `--checkboxstyle` (checkbox, switch, sizes) |
+| 10 | `10_list_items.zsh` | `--listitem` (status, statustext, custom SF symbols), `--liststyle`, `--enablelistselect`, command file (list:, listitem:, add, delete, index) |
+| 11 | `11_window_options.zsh` | `--width`, `--height`, `--big`, `--small`, `--position`, `--positionoffset`, `--moveable`, `--ontop`, `--resizable`, `--windowbuttons`, `--appearance`, `--showdockicon`, `--dockiconbadge` |
+| 12 | `12_command_file.zsh` | Full command file tour: title:, titlefont:, message: (+append), alignment:, icon:, overlayicon:, iconalpha:, button1text:, button1:, infotext:, infobox:, icon: centre/left |
+| 13 | `13_notifications.zsh` | `--notification`, `--subtitle`, `--identifier`, `--remove` |
+| 14 | `14_mini_presentation.zsh` | `--mini` (with progress), `--presentation` (with listitem, infobox, progress) |
+| 15 | `15_web_video.zsh` | `--webcontent`, `--video` (youtube= shortcut), `--videocaption`, `--autoplay` |
+| 16 | `16_json_input.zsh` | `--jsonstring`, `--jsonfile`, JSON arrays for checkboxes, selectitems, textfields, images |
+| 17 | `17_fullscreen_blur.zsh` | `--fullscreen`, `--blurscreen`, `--hideotherapps` |
+| 18 | `18_misc_features.zsh` | `--helpmessage`, `--infotext`, `--infobox`, `--vieworder`, `--quitkey`, `--sound`, `--showsoundcontrols`, `--displaylog`, `--loghistory`, `--debug`, `--eula`, `--alwaysreturninput`, auth key/checksum explanation |
+| 19 | `19_inspect_mode.zsh` | `--inspect-mode`, `--inspect-config`, `--published-sessions-dir`, `stepType: "cadence"`, `cadenceStyle: "carousel"`, cadence IPC (`cadence:satisfy`, `cadence:advance`, `cadence:goto`), preset 3 redesign, footer logo, forced `appearance`, `cacheExtensions` with `aria2` |
+| 20 | `20_branched_workflows.zsh` | top-level `workflow` array, `branch.map`, `branch.default`, `branch.ifTrue`, `branch.ifFalse`, `nextpage`, `finalpage`, history-aware Previous |
 
 ## Running Individual Demos
 
@@ -95,5 +96,6 @@ Each demo script is self-contained:
 - Demos that use `--blurscreen` or `--fullscreen` will briefly take over the display
 - Notification demos require notification permissions for swiftDialog
 - Some image demos use system desktop pictures which may vary by macOS version
-- Demo 19 covers `--inspect-mode` and config-driven usage with a deterministic local simulation.
-- See the [Inspect Mode](https://swiftdialog.app/advanced/inspect-mode/) documentation for additional presets and options.
+- Demo 19 now focuses on the v3.1.0b4 inspect refresh, including cadence carousel, preset 3 compact redesign, session publishing, and a companion managed-preference sample JSON.
+- Demos 19 and 20 require **swiftDialog v3.1.0b4 or newer** for cadence and branched workflow support.
+- See the [swiftDialog v3.1.0b4 release notes](https://github.com/swiftDialog/swiftDialog/releases/tag/v3.1.0b4) for the exact feature set covered here.

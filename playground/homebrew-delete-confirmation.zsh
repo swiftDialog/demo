@@ -215,7 +215,6 @@ finish_with_error() {
         --messagefont "size=${FONT_SIZE}" \
         --message "$dialog_message" \
         --icon "SF=xmark.octagon.fill,colour=#FF3B30" \
-        --overlayicon "https://usw2.ics.services.jamfcloud.com/icon/hash_9edff3eb98482a1aaf17f8560488f7b500cc7dc64955b8a9027b3801cab0fd82" \
         --button1text "Close" \
         --moveable \
         --width 700 || true

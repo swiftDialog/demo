@@ -291,6 +291,7 @@ exit 0
 ## 4. Realistic Mac Admin Scenarios
 
 This section provides detailed, real-world scenarios with exact prompts, expected AI interactions, and tier reasoning.
+It currently covers onboarding, compliance, app deployment, policy acknowledgment, inspect mode, and a destructive-action confirmation workflow.
 
 ### 4.1 Scenario: Employee Onboarding Form
 
@@ -683,6 +684,24 @@ I want to show log excerpts in the side message area as installs progress.
 ```
 
 The AI will enhance the `logMonitor` section in the inspect config to tail your log file and update the side message with relevant lines.
+
+---
+
+### 4.6 Scenario: Destructive Homebrew Removal with Hash Verification
+
+**Context:** You need an internal Jamf/root-run workflow that removes Homebrew only after explicit user acknowledgment, then downloads the official uninstall script, verifies its SHA256 hash, and shows live progress to the logged-in GUI user.
+
+This repo now includes both prompt and generated-script examples for that pattern:
+
+- [`homebrew-delete-confirmation.md`](./homebrew-delete-confirmation.md) — exact Codex prompt/spec
+- [`homebrew-delete-confirmation.zsh`](./homebrew-delete-confirmation.zsh) — generated internal-use script
+
+Use this scenario when you need a destructive-action confirmation flow with:
+
+- checkbox-gated acknowledgment before Button 1 enables
+- Jamf/root-run `/var/tmp` command-file handoff for live updates
+- strict download verification before executing remote content
+- clear failure dialogs that stop on hash mismatch or uninstall errors
 
 ---
 

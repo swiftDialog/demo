@@ -9,27 +9,24 @@
 DIALOG="/usr/local/bin/dialog"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SAMPLE_JSON="${SCRIPT_DIR}/19_inspect_mode_managedpref_sample.json"
-
-INSPECT_ROOT="/tmp/swiftdialog_inspect_mode_v310b4_demo"
-PUBLISHED_SESSIONS_DIR="/private/tmp/swiftdialog_demo_sessions.$$"
-
-CADENCE_CONFIG="${INSPECT_ROOT}/cadence_config.json"
-CADENCE_TRIGGER_FILE="${INSPECT_ROOT}/cadence.trigger"
-CADENCE_RESULT_FILE="${INSPECT_ROOT}/cadence.result.json"
-CADENCE_READINESS_FILE="${INSPECT_ROOT}/cadence.readiness.json"
-CADENCE_EVENT_FILE="${INSPECT_ROOT}/cadence.events.jsonl"
-CADENCE_MARKER_FILE="${INSPECT_ROOT}/cadence.marker"
-
-PRESET3_CONFIG="${INSPECT_ROOT}/preset3_config.json"
-PRESET3_TRIGGER_FILE="${INSPECT_ROOT}/preset3.trigger"
-PRESET3_RESULT_FILE="${INSPECT_ROOT}/preset3.result.json"
-PRESET3_READINESS_FILE="${INSPECT_ROOT}/preset3.readiness.json"
-PRESET3_EVENT_FILE="${INSPECT_ROOT}/preset3.events.jsonl"
-PRESET3_CACHE_ROOT="${INSPECT_ROOT}/cache"
-PRESET3_ARIA2_FILE="${PRESET3_CACHE_ROOT}/browserkit.pkg.aria2"
-PRESET3_BROWSER_APP="${INSPECT_ROOT}/BrowserKit.app"
-PRESET3_PROFILE_MARKER="${INSPECT_ROOT}/profiledrop.mobileconfig"
-PRESET3_REPORT_MARKER="${INSPECT_ROOT}/reportsync.done"
+INSPECT_ROOT=""
+PUBLISHED_SESSIONS_DIR=""
+CADENCE_CONFIG=""
+CADENCE_TRIGGER_FILE=""
+CADENCE_RESULT_FILE=""
+CADENCE_READINESS_FILE=""
+CADENCE_EVENT_FILE=""
+CADENCE_MARKER_FILE=""
+PRESET3_CONFIG=""
+PRESET3_TRIGGER_FILE=""
+PRESET3_RESULT_FILE=""
+PRESET3_READINESS_FILE=""
+PRESET3_EVENT_FILE=""
+PRESET3_CACHE_ROOT=""
+PRESET3_ARIA2_FILE=""
+PRESET3_BROWSER_APP=""
+PRESET3_PROFILE_MARKER=""
+PRESET3_REPORT_MARKER=""
 
 # Preset 3 footer branding expects a real on-disk image file.
 BRAND_ICON="/System/Applications/Utilities/Console.app/Contents/Resources/AppIcon.icns"
@@ -38,9 +35,34 @@ DARK_LOGO="$BRAND_ICON"
 PHASE_A_SESSION_FILE=""
 PHASE_A_SESSION_SUMMARY=""
 
+set_demo_paths() {
+    INSPECT_ROOT=$(mktemp -d "/tmp/swiftdialog_inspect_mode_v310b4_demo.XXXXXX") || exit 1
+    PUBLISHED_SESSIONS_DIR=$(mktemp -d "/private/tmp/swiftdialog_demo_sessions.XXXXXX") || exit 1
+
+    CADENCE_CONFIG="${INSPECT_ROOT}/cadence_config.json"
+    CADENCE_TRIGGER_FILE="${INSPECT_ROOT}/cadence.trigger"
+    CADENCE_RESULT_FILE="${INSPECT_ROOT}/cadence.result.json"
+    CADENCE_READINESS_FILE="${INSPECT_ROOT}/cadence.readiness.json"
+    CADENCE_EVENT_FILE="${INSPECT_ROOT}/cadence.events.jsonl"
+    CADENCE_MARKER_FILE="${INSPECT_ROOT}/cadence.marker"
+
+    PRESET3_CONFIG="${INSPECT_ROOT}/preset3_config.json"
+    PRESET3_TRIGGER_FILE="${INSPECT_ROOT}/preset3.trigger"
+    PRESET3_RESULT_FILE="${INSPECT_ROOT}/preset3.result.json"
+    PRESET3_READINESS_FILE="${INSPECT_ROOT}/preset3.readiness.json"
+    PRESET3_EVENT_FILE="${INSPECT_ROOT}/preset3.events.jsonl"
+    PRESET3_CACHE_ROOT="${INSPECT_ROOT}/cache"
+    PRESET3_ARIA2_FILE="${PRESET3_CACHE_ROOT}/browserkit.pkg.aria2"
+    PRESET3_BROWSER_APP="${INSPECT_ROOT}/BrowserKit.app"
+    PRESET3_PROFILE_MARKER="${INSPECT_ROOT}/profiledrop.mobileconfig"
+    PRESET3_REPORT_MARKER="${INSPECT_ROOT}/reportsync.done"
+}
+
+set_demo_paths
+
 cleanup() {
-    rm -rf "$INSPECT_ROOT"
-    rm -rf "$PUBLISHED_SESSIONS_DIR"
+    [[ -n "$INSPECT_ROOT" ]] && rm -rf "$INSPECT_ROOT"
+    [[ -n "$PUBLISHED_SESSIONS_DIR" ]] && rm -rf "$PUBLISHED_SESSIONS_DIR"
 }
 trap cleanup EXIT
 
@@ -89,7 +111,11 @@ wait_for_path() {
 }
 
 capture_session_file() {
-    PHASE_A_SESSION_FILE=$(find "$PUBLISHED_SESSIONS_DIR" -maxdepth 1 -name "*.json" | sort | head -1)
+    local -a session_files
+
+    setopt local_options null_glob
+    session_files=("${PUBLISHED_SESSIONS_DIR}"/*.json(N))
+    PHASE_A_SESSION_FILE="${session_files[1]:-}"
 
     if [[ -n "$PHASE_A_SESSION_FILE" && -f "$PHASE_A_SESSION_FILE" ]]; then
         PHASE_A_SESSION_SUMMARY=$(jq -r '"resultFile: \(.resultFile)\nreadinessFile: \(.readinessFile)\neventFile: \(.eventFile)' "$PHASE_A_SESSION_FILE" 2>/dev/null)
@@ -115,7 +141,8 @@ validate_generated_json() {
 
 prepare_demo_state() {
     rm -rf "$INSPECT_ROOT" "$PUBLISHED_SESSIONS_DIR"
-    mkdir -p "$INSPECT_ROOT" "$PRESET3_CACHE_ROOT" "$PUBLISHED_SESSIONS_DIR"
+    set_demo_paths
+    mkdir -p "$PRESET3_CACHE_ROOT"
 
     rm -f \
         "$CADENCE_CONFIG" \

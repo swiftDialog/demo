@@ -53,7 +53,7 @@ After exploring the demo suite and understanding swiftDialog's capabilities, use
 - Work with AI assistants (Claude, Copilot) using the bundled skills
 - Choose the right tier for your workflow (basic dialogs → forms → progress updates → inspect mode)
 - Follow detailed real-world scenarios with exact prompts and expected AI interactions
-- Build production-ready scripts for Mac Admin tasks (onboarding, compliance, deployment, monitoring)
+- Build production-ready scripts for Mac Admin tasks (onboarding, compliance, deployment, monitoring, destructive-action confirmation)
 
 **Start here:** [`playground/README.md`](playground/README.md) — Your workspace for AI-assisted swiftDialog script development.
 

@@ -96,12 +96,13 @@ Invoke relevant skill name during planning when work matches one of these patter
 
 ## Source of Truth
 
-When files disagree, prefer:
+For implemented repo behavior, prefer:
 
 1. `run_demos.zsh` and `demos/*.zsh` for implemented behavior and showcased features.
 2. `README.md` for public demo index and repo usage guidance.
 3. `skills/README.md` and skill-specific `README.md` files for AI skill-pack guidance.
-4. `AGENTS.md` for agent workflow, repo rules, and editing boundaries.
+
+For agent instructions, `AGENTS.md` overrides `README.md`, `.github/copilot-instructions.md`, and similar instruction files.
 
 ## Key Files
 
@@ -139,7 +140,7 @@ Match established repo style unless user explicitly asks otherwise.
 - Keep demo headers in this pattern:
   - `# Demo NN: ...`
   - `# Demonstrates: ...`
-- Demo files use two-digit zero-padded numbering: `01`, `02`, ... `19`.
+- Demo files use two-digit zero-padded numbering: `01`, `02`, ... `20`.
 - Define `DIALOG="/usr/local/bin/dialog"` near top.
 - Only `run_demos.zsh` uses `set -euo pipefail`; demo scripts do not.
 - Starter templates under `skills/` should also use `#!/bin/zsh` and keep same shell conventions unless target AI platform requires different layout. Applies to both `templates/` and `assets/templates/`.

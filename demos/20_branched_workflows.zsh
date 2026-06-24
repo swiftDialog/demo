@@ -4,10 +4,10 @@
 #               branch.ifFalse, nextpage, finalpage, history-aware Previous
 
 DIALOG="/usr/local/bin/dialog"
-WORKFLOW_JSON="/tmp/swiftdialog_branched_workflow_demo.json"
+WORKFLOW_JSON=""
 
 cleanup() {
-    rm -f "$WORKFLOW_JSON"
+    [[ -n "$WORKFLOW_JSON" ]] && rm -f "$WORKFLOW_JSON"
 }
 trap cleanup EXIT
 
@@ -69,6 +69,8 @@ fi
     --moveable \
     --width 760 \
     --json || exit 0
+
+WORKFLOW_JSON=$(mktemp -t swiftdialog_branched_workflow_demo.XXXXXX) || exit 1
 
 cat > "$WORKFLOW_JSON" <<'EOF'
 {

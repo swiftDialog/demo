@@ -236,7 +236,7 @@ if [[ -z "$BREW" ]]; then
         --title "Homebrew Not Installed" \
         --messagefont "size=${FONT_SIZE}" \
         --message "#### Homebrew is not installed on this Mac.\n\nNo changes were made.\n\nPlease click **OK**." \
-        --icon "SF=info.circle.fill,colour=#007AFF" \
+        --icon "https://usw2.ics.services.jamfcloud.com/icon/hash_34e1725356c642ed6a3a5586eafc02af65fe193712a9f12294242dcf7d3a4353" \
         --button1text "OK" \
         --moveable \
         --width 500 || true
@@ -285,7 +285,8 @@ result=$("$DIALOG" \
     --title "Remove Homebrew from this Mac?" \
     --messagefont "size=${FONT_SIZE}" \
     --message "$WARNING_MESSAGE" \
-    --icon "SF=exclamationmark.triangle.fill,colour=#FF3B30" \
+    --icon "SF=exclamationmark.triangle, weight=bold, colour1=red" \
+    --overlayicon "https://usw2.ics.services.jamfcloud.com/icon/hash_9edff3eb98482a1aaf17f8560488f7b500cc7dc64955b8a9027b3801cab0fd82" \
     --checkbox "I understand this will permanently remove Homebrew and the items listed above,name=acknowledged,enableButton1" \
     --button1text "Uninstall Homebrew" \
     --button1disabled \
@@ -314,6 +315,7 @@ fi
     --messagefont "size=${FONT_SIZE}" \
     --message "The official Homebrew uninstall workflow is running. After it completes, this script will also delete \`$HOMEBREW_DIRECTORY\` if it remains. Do not close Terminal, log out, or shut down this Mac until the process finishes." \
     --icon "SF=trash.slash.fill,colour=#FF6B35" \
+    --overlayicon "https://usw2.ics.services.jamfcloud.com/icon/hash_9edff3eb98482a1aaf17f8560488f7b500cc7dc64955b8a9027b3801cab0fd82" \
     --progress 5 \
     --progresstext "Preparing..." \
     --listitem "Download official uninstall script,status=pending" \
@@ -429,6 +431,7 @@ wait $DIALOG_PID 2>/dev/null || true
     --messagefont "size=${FONT_SIZE}" \
     --message "Homebrew uninstall completed, and \`$HOMEBREW_DIRECTORY\` was removed.\n\nA log was written to:\n\n\`$LOG_FILE\`" \
     --icon "SF=checkmark.circle.fill,weight=bold,colour1=#63CA56,colour2=#2D7D2B" \
+    --overlayicon "https://usw2.ics.services.jamfcloud.com/icon/hash_9edff3eb98482a1aaf17f8560488f7b500cc7dc64955b8a9027b3801cab0fd82" \
     --button1text "Done" \
     --moveable \
     --width 560 || true

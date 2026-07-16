@@ -6,7 +6,7 @@
 #               --loginwindow (explained), --key/--checksum (explained),
 #               --listfonts, --alwaysreturninput, --verbose
 
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 
 # --- Help message ---
 "$DIALOG" \

@@ -6,7 +6,7 @@
 #               per-item descriptions, cacheExtensions with aria2,
 #               resultFile/readinessFile/eventFile publishing
 
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SAMPLE_JSON="${SCRIPT_DIR}/19_inspect_mode_managedpref_sample.json"
 INSPECT_ROOT=""

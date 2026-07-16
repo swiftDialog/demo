@@ -4,7 +4,7 @@
 #               including checkbox arrays, image arrays, textfield arrays,
 #               selectitems arrays
 
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 JSON_FILE="/tmp/swiftdialog_demo.json"
 
 # --- JSON string input ---

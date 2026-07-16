@@ -3,7 +3,7 @@
 # Demonstrates: --notification, --title, --subtitle, --message, --icon,
 #               --identifier, --remove
 
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 
 # --- Explain notifications ---
 "$DIALOG" \

@@ -2,7 +2,7 @@
 # Demo 15: Web Content & Video
 # Demonstrates: --webcontent, --video, --videocaption, --autoplay
 
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 
 # --- Web content ---
 "$DIALOG" \

@@ -4,7 +4,7 @@
 #               --liststyle, --enablelistselect, command file list updates
 #               (list:, listitem:, add, delete, index, status keywords)
 
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 CMD_FILE=""
 
 cleanup() {

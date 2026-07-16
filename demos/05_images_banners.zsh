@@ -4,7 +4,7 @@
 #               --bannerheight, --background, --bgalpha, --bgposition, --bgfill, --bgscale,
 #               image carousel (multiple --image), markdown inline images (local & web)
 
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 
 # We'll use system images that are guaranteed to exist on macOS
 SYSTEM_IMG="/System/Library/Desktop Pictures"

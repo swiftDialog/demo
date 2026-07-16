@@ -2,7 +2,7 @@
 # Demo 01: Basic Dialog Styles
 # Demonstrates: --style (alert, caution, warning, centered, presentation, mini)
 
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 
 # --- Alert style ---
 "$DIALOG" \

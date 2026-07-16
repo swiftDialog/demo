@@ -3,7 +3,7 @@
 # Demonstrates: --progress, --progresstext, --progresstextalignment,
 #               --timer, --hidetimerbar, --hidetimer, command file updates
 
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 CMD_FILE=""
 
 cleanup() {

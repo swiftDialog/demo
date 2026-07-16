@@ -4,7 +4,7 @@
 #               regex, regexerror, confirm, fileselect, filetype, path, name),
 #               --textfieldlivevalidation
 
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 
 # --- Basic text fields ---
 result=$("$DIALOG" \

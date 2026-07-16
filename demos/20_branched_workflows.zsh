@@ -3,7 +3,7 @@
 # Demonstrates: workflow cards, branch.map, branch.default, branch.ifTrue,
 #               branch.ifFalse, nextpage, finalpage, history-aware Previous
 
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 WORKFLOW_JSON=""
 
 cleanup() {

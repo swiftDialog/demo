@@ -3,7 +3,7 @@
 # Demonstrates: --mini (with --progress), --presentation (with --listitem,
 #               --image, --infobox, --autoplay, --webcontent)
 
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 CMD_FILE=""
 
 cleanup() {

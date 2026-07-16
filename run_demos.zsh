@@ -13,7 +13,7 @@ set -euo pipefail
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 DEMO_DIR="$(cd "$(dirname "$0")/demos" && pwd)"
 ICON_APP="/Applications/Utilities/Terminal.app"
 DEMO_VERSION="1.1"

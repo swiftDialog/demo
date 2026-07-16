@@ -6,7 +6,7 @@
 #               --buttonstyle (center, stack), --buttonsize, --buttontextsize,
 #               --quitoninfo, --helpmessage, --hidedefaultkeyboardaction
 
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 
 # --- Button 1 with symbol ---
 "$DIALOG" \

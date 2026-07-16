@@ -4,7 +4,7 @@
 #               --moveable, --ontop, --resizable, --windowbuttons, --appearance,
 #               --showonallscreens, --showdockicon, --dockicon, --dockiconbadge
 
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 
 # --- Small window ---
 "$DIALOG" \

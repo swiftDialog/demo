@@ -2,7 +2,7 @@
 # Demo 17: Full Screen & Blur
 # Demonstrates: --fullscreen, --blurscreen, --hideotherapps
 
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 
 # --- Explain what's coming ---
 "$DIALOG" \

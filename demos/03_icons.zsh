@@ -4,7 +4,7 @@
 #               animation), --iconsize, --iconalpha, --centreicon,
 #               --overlayicon, --hideicon
 
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 
 # --- SF Symbol with colour ---
 "$DIALOG" \

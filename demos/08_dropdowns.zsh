@@ -4,7 +4,7 @@
 #               modifiers (required, radio, searchable, multiselect, name),
 #               dividers (---), JSON input format
 
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 
 # --- Basic dropdown ---
 result=$("$DIALOG" \

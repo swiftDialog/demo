@@ -9,7 +9,7 @@
 #   blurscreen:, showdockicon:, dockicon:, dockiconbadge:, bounce:,
 #   bannerimage:, bannertext:, webcontent:, video:, quit:
 
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 CMD_FILE=""
 BANNER_IMAGE="/System/Library/CoreServices/DefaultDesktop.heic"
 

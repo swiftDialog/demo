@@ -3,7 +3,7 @@
 # Demonstrates: --checkbox (with name modifier), --checkboxstyle (checkbox, switch,
 #               sizes, icon), JSON output
 
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 
 # --- Basic checkboxes ---
 result=$("$DIALOG" \

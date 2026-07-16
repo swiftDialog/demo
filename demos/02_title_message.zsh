@@ -4,7 +4,7 @@
 #               --messagealignment, --messageposition, --bannertitle, --bannertext,
 #               inline colour syntax :colour[text]
 
-DIALOG="/usr/local/bin/dialog"
+DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 
 # --- Title font customization ---
 "$DIALOG" \

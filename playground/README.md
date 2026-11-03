@@ -74,9 +74,9 @@ The skills organize swiftDialog workflows into four tiers, from simplest to most
 | Tier | Use Case | Example Demos | Key Features |
 |------|----------|---------------|--------------|
 | **Tier 1** | One-shot messaging, confirmations, alerts | [01](../demos/01_basic_styles.zsh), [02](../demos/02_title_message.zsh), [04](../demos/04_buttons.zsh) | Basic buttons, styled dialogs, simple messaging |
-| **Tier 2** | Input forms with validation | [07](../demos/07_text_fields.zsh), [08](../demos/08_dropdowns.zsh), [09](../demos/09_checkboxes.zsh) | Text fields, dropdowns, checkboxes, JSON output |
+| **Tier 2** | Input forms with validation | [07](../demos/07_text_fields.zsh), [08](../demos/08_dropdowns.zsh), [09](../demos/09_checkboxes.zsh), [22](../demos/22_vieworder_groups.zsh), [23](../demos/23_sliders_steppers.zsh), [24](../demos/24_page_buttons.zsh), [25](../demos/25_control_dependencies.zsh) | Text fields, dropdowns, checkboxes, JSON output, grouped layouts, sliders, steppers, page buttons, dependent controls |
 | **Tier 3** | Live progress updates | [06](../demos/06_progress_timer.zsh), [10](../demos/10_list_items.zsh), [12](../demos/12_command_file.zsh), [14](../demos/14_mini_presentation.zsh) | Progress bars, command files, dynamic updates |
-| **Tier 4** | Config-driven or log monitoring | [16](../demos/16_json_input.zsh), [19](../demos/19_inspect_mode.zsh) | JSON configuration, inspect mode, path monitoring |
+| **Tier 4** | Config-driven or log monitoring | [16](../demos/16_json_input.zsh), [19](../demos/19_inspect_mode.zsh), [20](../demos/20_branched_workflows.zsh), [21](../demos/21_navigation_sidebar.zsh), [26](../demos/26_settings_pane.zsh) | JSON configuration, inspect mode, path monitoring, branched workflows, navigation pages |
 
 > **Favor Simplicity:** Choose the smallest tier that satisfies your requirements; don't use _Tier 3_ progress updates if _Tier 1_ buttons are sufficient.
 

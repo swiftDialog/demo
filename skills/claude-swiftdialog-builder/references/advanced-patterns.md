@@ -174,6 +174,30 @@ Choose a workflow/cards JSON pattern when the dialog should route between pages 
 
 ---
 
+## When To Use Navigation Pages
+
+Requires the swiftDialog 3.2.0 preview (build 5001 or newer). Choose `"cardstyle": "navigation"` when people should complete pages in any order from a sidebar instead of stepping through a linear wizard:
+
+- Onboarding or intake windows with several independent sections
+- Settings-style panes with grouped inputs, numeric inputs, or buttons that act immediately
+- Forms where some controls depend on other answers on the same page
+
+**Reference demos:**
+
+- `21_navigation_sidebar.zsh` — `cardstyle`, `section`, `sidebartitle`, `sidebaricon`, `sidebarwidth`, page warnings, blocked Done, `{field}` substitution
+- `26_settings_pane.zsh` — capstone combining navigation, `vieworder` groups, sliders, steppers, page buttons, and `enabledif` / `visibleif`
+
+**Typical workflow:**
+
+1. Author a `cards` array in `--jsonfile` with `"cardstyle": "navigation"` at the top level
+2. Set window keys (`width`, `height`, `resizable`, button text) at the top level only; card-level window keys are ignored
+3. Group pages with `section`; shorten sidebar labels with `sidebartitle`
+4. Mark required fields so incomplete pages get warnings and Done stays blocked
+5. Create the JSON config and any `shell` action folder in `/var/tmp`. When the script runs as root, `chown` them to the console user, because swiftDialog runs as that user and can't read root's private temp files. Remove them with `trap cleanup EXIT`
+6. Always return `--json`; plain-text output can drop buttons clicked on other pages in the preview build
+
+---
+
 ## When To Use Inspect Mode
 
 Choose inspect mode only for workflows that benefit from a config-driven monitor:
@@ -280,6 +304,7 @@ wait $DIALOG_PID 2>/dev/null || true
 | Live progress updates | Command file | 3 |
 | Dynamic field generation | JSON input | 2 or 4 |
 | Multi-page native routing | Workflow cards | 4 |
+| Pages completed in any order, settings pane | Navigation pages | 4 |
 | Log-driven monitoring | Inspect mode | 4 |
 | Path-based completion | Inspect mode | 4 |
 

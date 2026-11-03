@@ -15,6 +15,12 @@ Use the smallest demo set that covers the request.
 - `08_dropdowns.zsh`: dropdowns, radio mode, searchable lists, multiselect, named output
 - `09_checkboxes.zsh`: checkbox and switch collections, named output
 - `16_json_input.zsh`: `--jsonstring` and `--jsonfile` when form configuration is easier in JSON
+- `22_vieworder_groups.zsh`: `--vieworder` titled groups (CSV `[Title]` or JSON `groups` with `description` / `footer`), mixed input types per group, `detail` subtext
+- `23_sliders_steppers.zsh`: `--slider` and `--stepper` numeric inputs with units, labels, and numeric `--json` output
+- `24_page_buttons.zsh`: page buttons that act immediately (`url`, `shell`, `sheet`), selectable swatch rows, colour wells, info rows, `clicked` / `exitcode` output
+- `25_control_dependencies.zsh`: `enabledif` / `visibleif` conditions, reset-to-default, required checks skipped while unavailable
+
+Demos 22–25 require the swiftDialog 3.2.0 preview (build 5001 or newer).
 
 ## Tier 3: Live progress and status
 
@@ -28,6 +34,10 @@ Use the smallest demo set that covers the request.
 - `16_json_input.zsh`: dialog configuration authored in JSON
 - `19_inspect_mode.zsh`: v3.1.0b4 inspect-mode monitoring with cadence carousel, hybrid IPC, preset 3 redesign, footer branding, and published session files
 - `20_branched_workflows.zsh`: workflow-card routing with `branch`, `nextpage`, `finalpage`, and history-aware Previous navigation
+- `21_navigation_sidebar.zsh`: `"cardstyle": "navigation"` sidebar pages with sections, page warnings, blocked Done, and `{field}` substitution
+- `26_settings_pane.zsh`: capstone settings pane combining navigation, groups, numeric inputs, page buttons, and dependencies
+
+Demos 21 and 26 require the swiftDialog 3.2.0 preview (build 5001 or newer). Navigation dialogs should always use `--json`.
 
 ## Supporting demos
 

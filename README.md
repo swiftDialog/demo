@@ -81,6 +81,12 @@ After exploring the demo suite and understanding swiftDialog's capabilities, use
 | 18 | `18_misc_features.zsh` | `--helpmessage`, `--infotext`, `--infobox`, `--vieworder`, `--quitkey`, `--sound`, `--showsoundcontrols`, `--displaylog`, `--loghistory`, `--debug`, `--eula`, `--alwaysreturninput`, auth key/checksum explanation |
 | 19 | `19_inspect_mode.zsh` | `--inspect-mode`, `--inspect-config`, `--published-sessions-dir`, `stepType: "cadence"`, `cadenceStyle: "carousel"`, cadence IPC (`cadence:satisfy`, `cadence:advance`, `cadence:goto`), preset 3 redesign, footer logo, forced `appearance`, `cacheExtensions` with `aria2` |
 | 20 | `20_branched_workflows.zsh` | top-level `workflow` array, `branch.map`, `branch.default`, `branch.ifTrue`, `branch.ifFalse`, `nextpage`, `finalpage`, history-aware Previous |
+| 21 | `21_navigation_sidebar.zsh` | `"cardstyle": "navigation"`, `section`, `sidebartitle`, `sidebaricon`, `sidebarwidth`, required-field page warnings, blocked Done with summary sheet, `{field}` substitution, `--resizable` (new-hire onboarding) |
+| 22 | `22_vieworder_groups.zsh` | `--vieworder` `[Title]` groups (CSV) and JSON `{"groups":[...]}` with `description` / `footer`, mixed input types per group, `detail` subtext, unlisted inputs in a trailing group, type-only ordering (device inventory check-in) |
+| 23 | `23_sliders_steppers.zsh` | `--slider`, `--stepper` (`min`, `max`, `step`, `value`, `unit`, `minlabel`, `maxlabel`, `showvalue`, `detail`), JSON object per argument, numeric `--json` output (update deferral preferences) |
+| 24 | `24_page_buttons.zsh` | `--button`, `--buttons` (`url`, `shell`, `sheet`, `confirm`, `symbol`, `display`), JSON rows with `items`, selectable swatch row (`labelposition: selected`), `type: colour`, `type: info`, slow shell spinner and still-running sheet, `clicked` / `exitcode` output (help desk toolkit) |
+| 25 | `25_control_dependencies.zsh` | `enabledif`, `visibleif`, operators `=` `!=` `>` `<` `>=` `<=` `&&` `\|\|` `!`, reset to default while unavailable, required / regex skipped while unavailable (remote access and hardware service requests) |
+| 26 | `26_settings_pane.zsh` | Capstone settings pane: navigation sections, `vieworder` groups, info rows, swatches, colour well, sliders, steppers, page buttons, `enabledif` / `visibleif` |
 
 ## Running Individual Demos
 
@@ -99,3 +105,4 @@ Each demo script is self-contained:
 - Demo 19 now focuses on the v3.1.0b4 inspect refresh, including cadence carousel, preset 3 compact redesign, session publishing, and a companion managed-preference sample JSON.
 - Demos 19 and 20 require **swiftDialog v3.1.0b4 or newer** for cadence and branched workflow support.
 - See the [swiftDialog v3.1.0b4 release notes](https://github.com/swiftDialog/swiftDialog/releases/tag/v3.1.0b4) for the exact feature set covered here.
+- Demos 21–26 require the **swiftDialog 3.2.0 preview (build 5001 or newer)**, which is not publicly available yet. On older versions, each demo shows a "required" alert and exits.

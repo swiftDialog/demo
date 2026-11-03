@@ -16,7 +16,7 @@ set -euo pipefail
 DIALOG="${DIALOG:-/usr/local/bin/dialog}"
 DEMO_DIR="$(cd "$(dirname "$0")/demos" && pwd)"
 ICON_APP="/Applications/Utilities/Terminal.app"
-DEMO_VERSION="1.1"
+DEMO_VERSION="2.0"
 
 # Colours
 BLUE="#007AFF"
@@ -92,6 +92,12 @@ show_selector() {
         --checkbox "18. View Order & Misc Features" \
         --checkbox "19. Inspect Mode v3.1.0b4 (cadence - preset 3 - session publishing)" \
         --checkbox "20. Branched Workflows (workflow cards - branch - nextpage - finalpage)" \
+        --checkbox "21. Navigation Sidebar (cardstyle navigation - sections - page warnings)" \
+        --checkbox "22. View Order Groups (titled groups - detail subtext - mixed inputs)" \
+        --checkbox "23. Sliders & Steppers (min - max - step - unit - real numbers)" \
+        --checkbox "24. Page Buttons (url - shell - sheet - swatches - colour well)" \
+        --checkbox "25. Control Dependencies (enabledif - visibleif - reset to default)" \
+        --checkbox "26. Settings Pane Capstone (navigation - groups - controls - dependencies)" \
         --checkboxstyle switch \
         --button1text "▶ Start Demos" \
         --button2text "Back" \
@@ -99,7 +105,7 @@ show_selector() {
         --ontop \
         --moveable \
         --width 720 \
-        --height 740 \
+        --height 900 \
         --resizable \
         --json 2>/dev/null) || return $?
 
@@ -183,6 +189,12 @@ main() {
             ["18. View Order & Misc Features"]="18_misc_features.zsh"
             ["19. Inspect Mode v3.1.0b4 (cadence - preset 3 - session publishing)"]="19_inspect_mode.zsh"
             ["20. Branched Workflows (workflow cards - branch - nextpage - finalpage)"]="20_branched_workflows.zsh"
+            ["21. Navigation Sidebar (cardstyle navigation - sections - page warnings)"]="21_navigation_sidebar.zsh"
+            ["22. View Order Groups (titled groups - detail subtext - mixed inputs)"]="22_vieworder_groups.zsh"
+            ["23. Sliders & Steppers (min - max - step - unit - real numbers)"]="23_sliders_steppers.zsh"
+            ["24. Page Buttons (url - shell - sheet - swatches - colour well)"]="24_page_buttons.zsh"
+            ["25. Control Dependencies (enabledif - visibleif - reset to default)"]="25_control_dependencies.zsh"
+            ["26. Settings Pane Capstone (navigation - groups - controls - dependencies)"]="26_settings_pane.zsh"
         )
 
         # Parse JSON output to find checked items

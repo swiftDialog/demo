@@ -12,7 +12,7 @@ If same correction repeats, formalize it here instead of re-prompting it.
 
 `swiftDialog_demos` is self-guided showcase of swiftDialog features plus repo-aligned AI skill packs for authoring similar scripts.
 Primary controller is `run_demos.zsh`.
-Primary artifacts are demo scripts under `demos/01_basic_styles.zsh` through `demos/20_branched_workflows.zsh`.
+Primary artifacts are demo scripts under `demos/01_basic_styles.zsh` through `demos/26_settings_pane.zsh`.
 AI skill packs live under `skills/codex-swiftdialog-builder/` and `skills/claude-swiftdialog-builder/`.
 
 ## Key Commands
@@ -140,7 +140,7 @@ Match established repo style unless user explicitly asks otherwise.
 - Keep demo headers in this pattern:
   - `# Demo NN: ...`
   - `# Demonstrates: ...`
-- Demo files use two-digit zero-padded numbering: `01`, `02`, ... `20`.
+- Demo files use two-digit zero-padded numbering: `01`, `02`, ... `26`.
 - Define `DIALOG="/usr/local/bin/dialog"` near top.
 - Only `run_demos.zsh` uses `set -euo pipefail`; demo scripts do not.
 - Starter templates under `skills/` should also use `#!/bin/zsh` and keep same shell conventions unless target AI platform requires different layout. Applies to both `templates/` and `assets/templates/`.
@@ -245,7 +245,7 @@ Match established repo style unless user explicitly asks otherwise.
 2. For any changed `.zsh` script or template, prompt user to run `zsh -n` on each changed file.
 3. For demo additions or behavior changes, verify repo layout references still match actual files:
    - `run_demos.zsh`
-   - `demos/01_basic_styles.zsh` through `demos/20_branched_workflows.zsh`
+   - `demos/01_basic_styles.zsh` through `demos/26_settings_pane.zsh`
    - Demo Index in `README.md`
 4. For skill-pack changes, verify companion docs stay aligned:
    - `skills/README.md`

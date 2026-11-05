@@ -27,18 +27,21 @@ dialog_build_number() {
 }
 
 require_dialog_beta() {
-    local version_string build_number
+    local version_string build_number major minor patch
     version_string=$(dialog_version)
     build_number=$(dialog_build_number)
 
-    [[ -n "$version_string" ]] || return 1
+    [[ "$version_string" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+) ]] || return 1
+    major=${match[1]}
+    minor=${match[2]}
+    patch=${match[3]}
 
-    if [[ "$version_string" == 3.1.0* ]]; then
-        [[ "$build_number" -eq 0 || "$build_number" -ge 4990 ]]
-        return $?
-    fi
+    # Anything newer than 3.1.0 passes; 3.1.0 itself needs build 4990+ (b4)
+    (( major != 3 )) && { (( major > 3 )); return $?; }
+    (( minor != 1 )) && { (( minor > 1 )); return $?; }
+    (( patch > 0 )) && return 0
 
-    return 1
+    [[ "$build_number" -eq 0 || "$build_number" -ge 4990 ]]
 }
 
 if [[ ! -x "$DIALOG" ]]; then
